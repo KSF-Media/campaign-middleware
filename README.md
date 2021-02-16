@@ -13,3 +13,6 @@ How to import the plugin and activate it:
 For staging and prod there aren't really any smart env. management tools for wordpress unless hosting the wordpress server yourself. So we will have to go and manually change the endpoints if we are going to prod.
 Therefor, go into the campaign-pages.php and replace all occurences of `staging` with `api` to have the correct
 endpoints in the WP middleware.
+
+Still some error handling and figuring out the .env variables in wordpress left to do.
+Just put in the staging API endpoints statically for now.

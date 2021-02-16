@@ -14,27 +14,22 @@ header('Access-Control-Allow-Origin: *');
 add_action( 'rest_api_init', function () {
    register_rest_route( 'ksf-campaign/v1', '/new', array(
      'methods' => 'POST',
-     'callback' => 'make_api_call_bottega',
-     'args' => array(
-       'id' => array(
-         'validate_callback' => function($param, $request, $key) {
-           return is_numeric( $param );
-         }
-       ),
-     ),
+     'callback' => 'make_api_call_campaign'
    ) );
  } );
 
- function make_api_call_bottega( WP_REST_Request $request ) {
+ function make_api_call_campaign( WP_REST_Request $request ) {
    //get input parameters
    $body = $request->get_params();
    //throws error if body is empty
    if ( empty( $body ) ) {
      return new WP_Error( 'no_body', $body , array( 'status' => 404 ) );
    }
-   //gets the user, either existing one or new one
+   //gets the user, either existing one or new one through persona
    $user = getUser($body);
+   //creates an order request to bottega 
    $order = makeOrder($user, $body);
+   //creates the processing for order and returns the terminal URL for Nets
    $payment = goToPayment($user, $order);
    return $payment;
    exit;
