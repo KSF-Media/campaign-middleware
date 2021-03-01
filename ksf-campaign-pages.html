@@ -351,7 +351,8 @@
                   <input type="hidden" name="packageId" value="" id="packageId">
                   <input class="checkbox" type="checkbox" id="terms-accept">
                 </div>
-                <label class="checkbox-text" for="terms-accept"> Jag har läst och godkänner <a href="">villkoren</a></label>
+                <label class="checkbox-text" for="terms-accept"> Jag har läst och godkänner <a
+                    href="">villkoren</a></label>
                 <br>
                 <div class="row">
                   <div class="col">
@@ -413,6 +414,19 @@
         </div>
         <div class="modal-body">
           <iframe id="paymentModalSrc" src="" title="NETS TERMINAL" style="height: 100%; width:100%;"></iframe>
+          <div id="payment-loading" style="display:none;">
+            <div class="loading-dots">
+              <h1>Betalning pågår</h1>
+              <div class="loading-dots--dot"></div>
+              <div class="loading-dots--dot"></div>
+              <div class="loading-dots--dot"></div>
+            </div>
+          </div>
+          <div id="payment-successfull" style="display:none;">
+            <div class="successful-payment">
+              <h1>Betalning lyckades.</h1>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -156,31 +156,43 @@ $('#campaignFormInit').submit(function (e) {
 });
 
 function initiateOrderChecker(e,uuid,token,orderNumber){
-  //e.preventDefault();
+  e.preventDefault();
   console.log('kommer in i initiate??')
   $.ajax({
+    type: "POST",
     //url: 'https://bottega.api.ksfmedia.fi/v1/order/'+orderNumber,
-    url: 'https://bottega.staging.ksfmedia.fi/v1/order/'+orderNumber,
+    url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/get-order/',
     headers: {
-      'AuthUser': uuid,
-      'Authorization': 'OAuth '+token
-
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
-    type: "GET",
-    beforeSend: function (xhr) {
-      xhr.setRequestHeader ("Authorization", "OAuth " + token);
-      xhr.setRequestHeader("AuthUser", uuid);
-      xhr.setRequestHeader("Access-Control-Allow-Origin", 'http://localhost:3000');
-  },
+    data: {
+      uuid,
+      token,
+      orderNumber
+    },
     success: function (result) {
       console.log('result', result);
+      if(result.status['state']=='created'){
+      setTimeout(initiateOrderChecker(e,uuid,token,orderNumber),5000);
+      }
+      else if(result.status['state']=='started'){
+        $("#paymentModalSrc").hide();
+        $("#payment-loading").show();
+        setTimeout(initiateOrderChecker(e,uuid,token,orderNumber),5000);
+      }
+      else if(result.status['state']=='completed'){
+        $("#paymentModalSrc").hide();
+        $("#payment-loading").hide();
+        $("#payment-successfull").show();
+      }
+      else if(result.status['state']=='failed'){ 
+        //TODO: ADD ERROR HANDLER FOR IF PAYMENT FAILS; need to check what the status code of that is?
+      }
     },
     error: function (e) {
       console.log("error", e);
     }
   });
-
-  //setTimeout(initiateOrderChecker(e,uuid,token,orderNumber),5000);
 }
 
 $('#forgotPasswordInit').submit(function (e) {
