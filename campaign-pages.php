@@ -100,8 +100,13 @@ add_action( 'rest_api_init', function () {
   $options = formatJsonRequestBottega($formattedPaymentObj, $user->{'uuid'}, $user->{'token'});
   $response = wp_remote_post( "https://bottega.staging.ksfmedia.fi/v1/order/{$orderNumber}/pay", $options);
   $responseBody = json_decode(wp_remote_retrieve_body( $response ));
-  $url = $responseBody->{'paymentTerminalUrl'};
-  return $url;
+  $finalResponse = array (
+    'url' => $responseBody->{'paymentTerminalUrl'},
+    'uuid' => $user->{'uuid'},
+    'token' => $user->{'token'},
+    'orderNumber' => $order->{'number'}
+  );
+  return $finalResponse;
 }
 
  function getExistingUser($body){

@@ -141,8 +141,9 @@ $('#campaignFormInit').submit(function (e) {
     success: function (result) {
       console.log('result', result);
       $("#divLoading").hide();
-      document.getElementById("paymentModalSrc").src = result;
+      document.getElementById("paymentModalSrc").src = result.url;
       $('#paymentModal').modal('show');
+      initiateOrderChecker(e,result.uuid,result.token,result.orderNumber);
     },
     error: function (e) {
       $("#divLoading").hide();
@@ -153,6 +154,29 @@ $('#campaignFormInit').submit(function (e) {
     }
   });
 });
+
+function initiateOrderChecker(e,uuid,token,orderNumber){
+  //e.preventDefault();
+  console.log('kommer in i initiate??')
+  $.ajax({
+    //url: 'https://bottega.api.ksfmedia.fi/v1/order/'+orderNumber,
+    url: 'https://bottega.staging.ksfmedia.fi/v1/order/'+orderNumber,
+    headers: {
+      'AuthUser': uuid,
+      'Authorization': 'OAuth '+token
+
+    },
+    type: "GET",
+    success: function (result) {
+      console.log('result', result);
+    },
+    error: function (e) {
+      console.log("error", e);
+    }
+  });
+
+  //setTimeout(initiateOrderChecker(e,uuid,token,orderNumber),5000);
+}
 
 $('#forgotPasswordInit').submit(function (e) {
   e.preventDefault();
