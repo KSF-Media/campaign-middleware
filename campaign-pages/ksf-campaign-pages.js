@@ -167,6 +167,11 @@ function initiateOrderChecker(e,uuid,token,orderNumber){
 
     },
     type: "GET",
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader ("Authorization", "OAuth " + token);
+      xhr.setRequestHeader("AuthUser", uuid);
+      xhr.setRequestHeader("Access-Control-Allow-Origin", 'http://localhost:3000');
+  },
     success: function (result) {
       console.log('result', result);
     },
