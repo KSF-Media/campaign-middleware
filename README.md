@@ -12,7 +12,7 @@ How to import the plugin and activate it:
 
 For staging and prod there aren't really any smart env. management tools for wordpress unless hosting the wordpress server yourself. So we will have to go and manually change the endpoints if we are going to prod.
 Therefor, go into the campaign-pages.php and replace all occurences of `staging` with `api` to have the correct
-endpoints in the WP middleware.
+endpoints in the WP middleware and go into the JS file and comment the localhost url and uncomment the ksf url.
 
 Still some error handling and figuring out the .env variables in wordpress left to do.
 Just put in the staging API endpoints statically for now.
@@ -21,14 +21,9 @@ Then to get the HTML, CSS and JS components to work you will first need to uploa
 to your wordpress site.
 
 HOW TO:
-//Kolla om vi kan ändra här så att den inte behöver ändras :)!
-1. Start by replacing the URL found on line 85 of the js file in campaign-pages/ksf-campaign-pages.js with
-your domain i.e. url: 'http://ksf.com/wp-json/ksf-campaign/v1/new'
-//Kolla vart man kan upploada detta
+1. Start by replacing the URLs in the JS file with the appropriate wordpress url. i.e. url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/forgot-password'
 2. Zip the campaign-pages folder and upload it to your wordpress site.
-3. Change the css href location found on line 6 in the HTML to match the location of where you uploaded the zip folder
-4. Change the js href location found on line 391 in the HTML to match the location of where you uploaded the zip folder
-5. Copy the HTML file content and paste it into a a HTML snippet in your wordpress page.
+3. Copy the HTML file content and paste it into a a HTML snippet in your wordpress page.
 
 HOW TO ADD CAMPAIGNS:
 
