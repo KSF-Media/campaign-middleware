@@ -358,6 +358,11 @@
   justify-content: center;
   align-items: center;
 }
+.successful-payment{
+  color: #00AF0F;
+  font-family: duplex-sans-bold;
+  margin-top:2rem;
+}
 
 .error_text{
   color: red;

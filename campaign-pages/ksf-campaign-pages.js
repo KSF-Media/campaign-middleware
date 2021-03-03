@@ -88,6 +88,7 @@ function selectCampaign(id) {
     }
   });
 }
+
 $("#terms-accept").click(function () {
   $('#submit-button').prop('disabled', !$(this).is(':checked') || !$("#selectedCampaign").val());
   window.dataLayer = window.dataLayer || [];
@@ -96,6 +97,7 @@ $("#terms-accept").click(function () {
     'package': document.getElementById('campaignNo').value
   });
 });
+
 $(function () {
   $("#checkExisting").click(function () {
     if ($(this).is(":checked")) {
@@ -112,7 +114,7 @@ $("#forgot-password").click(function () {
   $('#forgotPasswordModal').modal('show');
 });
 
-function forgotPwModal(){
+function forgotPwModal() {
   $('#forgotPasswordModal').modal('show');
 }
 
@@ -143,7 +145,7 @@ $('#campaignFormInit').submit(function (e) {
       $("#divLoading").hide();
       document.getElementById("paymentModalSrc").src = result.url;
       $('#paymentModal').modal('show');
-      initiateOrderChecker(e,result.uuid,result.token,result.orderNumber);
+      initiateOrderChecker(e, result.uuid, result.token, result.orderNumber);
     },
     error: function (e) {
       $("#divLoading").hide();
@@ -155,7 +157,7 @@ $('#campaignFormInit').submit(function (e) {
   });
 });
 
-function initiateOrderChecker(e,uuid,token,orderNumber){
+function initiateOrderChecker(e, uuid, token, orderNumber) {
   e.preventDefault();
   console.log('kommer in i initiate??')
   $.ajax({
@@ -172,21 +174,45 @@ function initiateOrderChecker(e,uuid,token,orderNumber){
     },
     success: function (result) {
       console.log('result', result);
-      if(result.status['state']=='created'){
-      setTimeout(initiateOrderChecker(e,uuid,token,orderNumber),5000);
+      if (result.status['state'] == 'created') {
+        setTimeout(initiateOrderChecker(e, uuid, token, orderNumber), 5000);
       }
-      else if(result.status['state']=='started'){
+      else if (result.status['state'] == 'started') {
         $("#paymentModalSrc").hide();
         $("#payment-loading").show();
-        setTimeout(initiateOrderChecker(e,uuid,token,orderNumber),5000);
+        setTimeout(initiateOrderChecker(e, uuid, token, orderNumber), 5000);
       }
-      else if(result.status['state']=='completed'){
+      else if (result.status['state'] == 'completed') {
         $("#paymentModalSrc").hide();
         $("#payment-loading").hide();
         $("#payment-successfull").show();
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+          'ecommerce': {
+            'purchase': {
+              'actionField': {
+                'id': orderNumber,
+                'revenue': document.getElementById("selected_campaign_price").innerHTML,
+                'currencyCode': 'EUR',
+                'coupon': "" // if there is a coupon code 
+              },
+              'products': [{                            
+                'name': document.getElementById("selected_campaign_text").innerHTML,
+                'id': document.getElementById("campaignNo").value,
+                'price': document.getElementById("selected_campaign_price").innerHTML,
+                'category': 'Package deal',
+                'variant': document.getElementById("packageId").value,
+                'quantity': 1
+              }]
+            }
+          }
+        });
       }
-      else if(result.status['state']=='failed'){ 
-        //TODO: ADD ERROR HANDLER FOR IF PAYMENT FAILS; need to check what the status code of that is?
+      else if (result.status['state'] == 'failed') {
+        $("#paymentModalSrc").hide();
+        $("#payment-loading").hide();
+        $("#payment-successfull").hide();
+        $("#payment-unsuccessfull").show();
       }
     },
     error: function (e) {
