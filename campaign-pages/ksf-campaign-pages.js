@@ -162,7 +162,7 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
   console.log('kommer in i initiate??')
   $.ajax({
     type: "POST",
-    //url: 'https://bottega.api.ksfmedia.fi/v1/order/'+orderNumber,
+    //url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
     url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/get-order/',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
