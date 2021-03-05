@@ -1,5 +1,6 @@
 $(function () {
   $('.campaign_info').each(function (idx, el) {
+    console.log("el", el.id);
     var countDown = new Date(el.innerHTML).getTime();
     var now = new Date().getTime();
     // Find the distance between now and the count down date
@@ -10,7 +11,9 @@ $(function () {
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     if (distance < 0) {
+      document.getElementById(el.id + '_container').classList.add("expired_div");
       el.innerHTML = 'Kampanjen har gått ut';
+      el.classList.add('expired_text');
     } else if (days < 1) {
       el.innerHTML = 'Kampanjen tar slut om ' + hours + ' timmar och ' + minutes + ' minuter';
     } else {
@@ -101,9 +104,11 @@ $("#terms-accept").click(function () {
 $(function () {
   $("#checkExisting").click(function () {
     if ($(this).is(":checked")) {
+      $('#forgot_password_a').show();
       $("#new-customer :input").removeAttr("required");
       $("#new-customer").hide();
     } else {
+      $('#forgot_password_a').hide();
       $("#new-customer").show();
       $("#new-customer :input").attr("required", "");
     }
@@ -143,9 +148,14 @@ $('#campaignFormInit').submit(function (e) {
     success: function (result) {
       console.log('result', result);
       $("#divLoading").hide();
-      document.getElementById("paymentModalSrc").src = result.url;
-      $('#paymentModal').modal('show');
-      initiateOrderChecker(e, result.uuid, result.token, result.orderNumber);
+      if (result.code != 200) {
+        $("#error_text").show();
+        $('#error_text').html(result.message);
+      } else {
+        document.getElementById("paymentModalSrc").src = result.url;
+        $('#paymentModal').modal('show');
+        initiateOrderChecker(e, result.uuid, result.token, result.orderNumber);
+      }
     },
     error: function (e) {
       $("#divLoading").hide();
@@ -196,7 +206,7 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
                 'currencyCode': 'EUR',
                 'coupon': "" // if there is a coupon code 
               },
-              'products': [{                            
+              'products': [{
                 'name': document.getElementById("selected_campaign_text").innerHTML,
                 'id': document.getElementById("campaignNo").value,
                 'price': document.getElementById("selected_campaign_price").innerHTML,
@@ -236,16 +246,16 @@ $('#forgotPasswordInit').submit(function (e) {
       $("#divLoading").css('display', 'flex');
     },
     success: function (result) {
-      console.log('result', result);
       $("#divLoading").hide();
-      console.log(result);
+      $("#forgot_pw_form").hide();
+      $("#pw_form_successfull").show();
+      $("#pw_form_unsuccessfull").hide();
     },
     error: function (e) {
       $("#divLoading").hide();
-      $("#error_text").show();
-      $('#error_text').html('Någonting gick fel. Försök pånytt.');
-      //TODO: TA BORT LOGGING ERRORS
-      console.log("error", e);
+      $("#forgot_pw_form").hide();
+      $("#pw_form_successfull").hide();
+      $("#pw_form_unsuccessfull").show();
     }
   });
 });

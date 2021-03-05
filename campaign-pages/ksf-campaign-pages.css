@@ -70,7 +70,7 @@
   text-align: center;
   font-family: duplex-sans-semibold;
   color: black;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: capitalize;
@@ -126,8 +126,20 @@
   font-size:0.85rem;
   font-family: duplex-sans-regular;
   color:#BCBCBC;
+}
+.campaign_info_header{
+  font-size:0.85rem;
+  font-family: duplex-sans-regular;
+  color:#BCBCBC;
   margin-top:10px;
-
+  margin-bottom:0px;
+}
+.campaign_info_sub{
+  font-size:0.85rem;
+  font-family: duplex-sans-regular;
+  color:black;
+  margin-top:5px;
+  margin-bottom:10px;
 }
 .per_month{
   color: black;
@@ -363,7 +375,14 @@
   font-family: duplex-sans-bold;
   margin-top:2rem;
 }
-
+.expired_div{
+  pointer-events: none;
+  opacity:0.5;
+}
+.expired_text{
+  color: red;
+  opacity:1 !important;
+}
 .error_text{
   color: red;
   font-family: duplex-sans-bold;
