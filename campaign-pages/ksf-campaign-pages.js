@@ -169,7 +169,6 @@ $('#campaignFormInit').submit(function (e) {
 
 function initiateOrderChecker(e, uuid, token, orderNumber) {
   e.preventDefault();
-  console.log('kommer in i initiate??')
   $.ajax({
     type: "POST",
     //url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
@@ -183,7 +182,6 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
       orderNumber
     },
     success: function (result) {
-      console.log('result', result);
       if (result.status['state'] == 'created') {
         setTimeout(initiateOrderChecker(e, uuid, token, orderNumber), 5000);
       }
@@ -198,6 +196,7 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
         $("#payment-successfull").show();
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
+          'event': 'Purchase',
           'ecommerce': {
             'purchase': {
               'actionField': {
