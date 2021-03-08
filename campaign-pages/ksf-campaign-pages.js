@@ -229,32 +229,3 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
     }
   });
 }
-
-$('#forgotPasswordInit').submit(function (e) {
-  e.preventDefault();
-  //TODO: TA BORT LOGGING ERRORS
-  $.ajax({
-    //url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/forgot-password',
-    url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/forgot-password',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    type: "POST",
-    data: $(this).serialize(),
-    beforeSend: function () {
-      $("#divLoading").css('display', 'flex');
-    },
-    success: function (result) {
-      $("#divLoading").hide();
-      $("#forgot_pw_form").hide();
-      $("#pw_form_successfull").show();
-      $("#pw_form_unsuccessfull").hide();
-    },
-    error: function (e) {
-      $("#divLoading").hide();
-      $("#forgot_pw_form").hide();
-      $("#pw_form_successfull").hide();
-      $("#pw_form_unsuccessfull").show();
-    }
-  });
-});

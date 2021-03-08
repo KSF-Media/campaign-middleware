@@ -18,13 +18,6 @@ add_action( 'rest_api_init', function () {
    ) );
  } );
 
- add_action( 'rest_api_init', function () {
-  register_rest_route( 'ksf-campaign/v1', '/forgot-password', array(
-    'methods' => 'POST',
-    'callback' => 'make_forgot_password_call_campaign'
-  ) );
-} );
-
 add_action( 'rest_api_init', function () {
   register_rest_route( 'ksf-campaign/v1', '/get-order', array(
     'methods' => 'POST',
@@ -66,20 +59,6 @@ add_action( 'rest_api_init', function () {
  }
  }
 
- function make_forgot_password_call_campaign( WP_REST_Request $request ) {
-  //get input parameters
-  $body = $request->get_params();
-  //throws error if body is empty
-  if ( empty( $body ) ) {
-    return new WP_Error( 'no_body', $body , array( 'status' => 404 ) );
-  }
-  //creates an order request to bottega
-  $request = makePasswordResetRequest($body);
-  //creates the processing for order and returns the terminal URL for Nets
-  return $request;
-  exit;
-}
-
 function make_order_call_campaign( WP_REST_Request $request ) {
   //get input parameters
   $body = $request->get_params();
@@ -112,21 +91,6 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   $formattedSignUpForm = wp_json_encode($orderObj);
   $options = formatJsonRequestBottega($formattedSignUpForm, $user->{'uuid'}, $user->{'token'});
   $response = wp_remote_post( 'https://bottega.staging.ksfmedia.fi/v1/order', $options);
-  if($response['response']['code']!=200){
-    throw new Exception($response['response']['code']);
-  }else{
-  $responseBody = json_decode(wp_remote_retrieve_body( $response ));
-  return $responseBody;
-  }
-}
-
- function makePasswordResetRequest($body){
-  $orderObj = array(
-    'email' => $body['email']
-  );
-  $formattedPasswordResetForm = wp_json_encode($orderObj);
-  $options = formatJsonRequestPersona($formattedPasswordResetForm);
-  $response = wp_remote_post( 'https://persona.staging.ksfmedia.fi/v1/account/forgotPass', $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
   }else{
