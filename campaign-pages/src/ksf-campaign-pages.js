@@ -1,6 +1,5 @@
 $(function () {
   $('.campaign_info').each(function (idx, el) {
-    console.log("el", el.id);
     var countDown = new Date(el.innerHTML).getTime();
     var now = new Date().getTime();
     // Find the distance between now and the count down date
@@ -54,7 +53,6 @@ function selectCampaign(id) {
     $("#error_text").hide();
     document.getElementById('campaign_selected').style.display = "inline";
   } else {
-
     document.getElementById(currentCampaign.value).innerHTML = "Välj paket";
     document.getElementById(currentCampaign.value).classList.add("btn-dark");
     document.getElementById(currentCampaign.value).classList.remove("btn-choose");
@@ -69,9 +67,15 @@ function selectCampaign(id) {
   document.getElementById("selected_campaign_text").innerHTML = document.getElementById(id + '-text').innerHTML;
   document.getElementById("selected_campaign_price").innerHTML = document.getElementById(id + '-price').innerHTML;
   document.getElementById("selected_campaign_price2").innerHTML = document.getElementById(id + '-price').innerHTML;
+  document.getElementById("extra_text_price").innerHTML = document.getElementById(id+'-extra_text_price').innerHTML;
   document.getElementById("selected_campaign_indicator").style.display = 'inline-block';
   document.getElementById("campaignNo").value = document.getElementById(id + '-campaignNo').value;
   document.getElementById("packageId").value = document.getElementById(id + '-packageId').value;
+  document.getElementById("period").value = document.getElementById(id + '-period').value;
+  document.getElementById("payAmountCents").value = document.getElementById(id + '-payAmountCents').value;
+  $([document.documentElement, document.body]).animate({
+    scrollTop: $("#info_section").offset().top
+}, 500);
 
   window.dataLayer = window.dataLayer || [];
   dataLayer.push({
@@ -101,6 +105,10 @@ $("#terms-accept").click(function () {
   });
 });
 
+$('#paymentModal').on('hidden.bs.modal', function () {
+  location.reload();
+ });
+
 $(function () {
   $("#checkExisting").click(function () {
     if ($(this).is(":checked")) {
@@ -125,17 +133,16 @@ function forgotPwModal() {
 
 $('#campaignFormInit').submit(function (e) {
   e.preventDefault();
-  //TODO: TA BORT LOGGING ERRORS
   $.ajax({
-    //url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/new',
-    url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/new',
+    //change this to accurate endpoint
+    url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/new',
+    //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/new',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     type: "POST",
     data: $(this).serialize(),
     beforeSend: function () {
-      console.log($(this).serialize());
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'event': 'Campaign_vetrina_click',
@@ -146,7 +153,6 @@ $('#campaignFormInit').submit(function (e) {
       $("#divLoading").css('display', 'flex');
     },
     success: function (result) {
-      console.log('result', result);
       $("#divLoading").hide();
       if (result.code != 200) {
         $("#error_text").show();
@@ -161,8 +167,6 @@ $('#campaignFormInit').submit(function (e) {
       $("#divLoading").hide();
       $("#error_text").show();
       $('#error_text').html('Någonting gick fel. Försök pånytt.');
-      //TODO: TA BORT LOGGING ERRORS
-      console.log("error", e);
     }
   });
 });
@@ -171,8 +175,9 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    //url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
-    url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/get-order/',
+    //change this to accurate endpoint
+    url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
+    //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/get-order/',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -225,7 +230,6 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
       }
     },
     error: function (e) {
-      console.log("error", e);
     }
   });
 }

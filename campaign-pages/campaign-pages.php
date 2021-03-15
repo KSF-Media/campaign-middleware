@@ -9,7 +9,7 @@ Author URI:
 License: GPLv2 or later
 Text Domain:
 */
-header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Origin: *');
 
 add_action( 'rest_api_init', function () {
    register_rest_route( 'ksf-campaign/v1', '/new', array(
@@ -84,13 +84,15 @@ function make_order_call_campaign( WP_REST_Request $request ) {
  function makeOrder($user, $body){
   $orderObj = array(
     'packageId' => $body['packageId'],
-    'period' => 1, //placeholder since this value is actually not used in the backend but required
-    'payAmountCents' => 999, //placeholder since this value is actually not used in the backend but required
+    'period' => (int)$body['period'], //placeholder since this value is actually not used in the backend but required
+    'payAmountCents' => (int)$body['payAmountCents'], //placeholder since this value is actually not used in the backend but required
     'campaignNo' => (int)$body['campaignNo']
   );
   $formattedSignUpForm = wp_json_encode($orderObj);
   $options = formatJsonRequestBottega($formattedSignUpForm, $user->{'uuid'}, $user->{'token'});
-  $response = wp_remote_post( 'https://bottega.staging.ksfmedia.fi/v1/order', $options);
+  //uncomment staging comment staging depending on env.
+  //$response = wp_remote_post( 'https://bottega.staging.ksfmedia.fi/v1/order', $options);
+  $response = wp_remote_post( 'https://bottega.api.ksfmedia.fi/v1/order', $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
   }else{
@@ -106,7 +108,9 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   );
   $formattedPaymentObj = wp_json_encode($paymentObj);
   $options = formatJsonRequestBottega($formattedPaymentObj, $user->{'uuid'}, $user->{'token'});
-  $response = wp_remote_post( "https://bottega.staging.ksfmedia.fi/v1/order/{$orderNumber}/pay", $options);
+  //uncomment staging comment staging depending on env.
+  //$response = wp_remote_post( "https://bottega.staging.ksfmedia.fi/v1/order/{$orderNumber}/pay", $options);
+  $response = wp_remote_post( "https://bottega.api.ksfmedia.fi/v1/order/{$orderNumber}/pay", $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
   }else{
@@ -129,7 +133,9 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   );
   $formattedSignUpForm = wp_json_encode($userObj);
   $options = formatJsonRequestPersona($formattedSignUpForm);
-  $response = wp_remote_post( 'https://persona.staging.ksfmedia.fi/v1/login', $options);
+  //uncomment staging comment staging depending on env.
+  //$response = wp_remote_post( 'https://persona.staging.ksfmedia.fi/v1/login', $options);
+  $response = wp_remote_post( 'https://persona.api.ksfmedia.fi/v1/login', $options);
 
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
@@ -142,7 +148,9 @@ function make_order_call_campaign( WP_REST_Request $request ) {
  function createPollingRequest($body){
   $orderNumber = $body['orderNumber'];
   $options = formatJsonGetRequestBottega($body['uuid'],$body['token']);
-  $response = wp_remote_get( "https://bottega.staging.ksfmedia.fi/v1/order/$orderNumber", $options);
+  //uncomment staging comment staging depending on env.
+  //$response = wp_remote_get( "https://bottega.staging.ksfmedia.fi/v1/order/$orderNumber", $options);
+  $response = wp_remote_get( "https://bottega.api.ksfmedia.fi/v1/order/$orderNumber", $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
   }else{
@@ -173,7 +181,9 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   );
   $formattedSignUpForm = wp_json_encode($userObj);
   $options = formatJsonRequestPersona($formattedSignUpForm);
-  $response = wp_remote_post( 'https://persona.staging.ksfmedia.fi/v1/users', $options);
+  //uncomment staging comment staging depending on env.
+  //$response = wp_remote_post( 'https://persona.staging.ksfmedia.fi/v1/users', $options);
+  $response = wp_remote_post( 'https://persona.api.ksfmedia.fi/v1/users', $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
   }else{

@@ -31,11 +31,17 @@
 .header {
   text-align: center;
   padding: 32px;
+  color:white;
+  background:url(https://www.ksfmedia.fi/wp-content/uploads/2021/03/banner-1920x120px-1.jpg);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .row_column {
   display: -ms-flexbox; /* IE 10 */
   display: flex;
+  padding-top:4%;
   -ms-flex-wrap: wrap; /* IE 10 */
   flex-wrap: wrap;
   /*padding: 0 4px;*/
@@ -63,6 +69,7 @@
 }
 .card_content {
   padding: 1rem;
+  padding-bottom: 2rem;
   background: white;
 }
 
@@ -70,7 +77,7 @@
   text-align: center;
   font-family: duplex-sans-semibold;
   color: black;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: capitalize;
@@ -82,7 +89,7 @@
   color: #363535;
   opacity: 0.8;
   font-family: duplex-sans-light;
-  font-size: 0.8rem;
+  font-size: 1rem;
   line-height: 1.5;
   margin-bottom: 0px !important;
   font-weight: 400;
@@ -94,10 +101,10 @@
 }
 .bottom-right-campaign-image {
   position: absolute;
-  background-color: #00810A;
+  background-color: #000000;
   font-family:duplex-sans-regular;
-  padding: 2px 5px 2px 5px;
-  font-size: 0.8rem;
+  padding: 4px 6px 4px 6px;
+  font-size: 0.85rem;
   bottom: 0px;
   right: 0px;
 }
@@ -105,8 +112,8 @@
   text-align: center;
 }
 .price-cross{
-  font-size:0.7rem;
-  color: #D6D6D6;
+  font-size:1rem;
+  color: #9c9c9c;
   font-family: duplex-sans-light;
   font-weight: 400;
   text-decoration: line-through;
@@ -126,6 +133,7 @@
   font-size:0.85rem;
   font-family: duplex-sans-regular;
   color:#BCBCBC;
+  padding-bottom: 20px;
 }
 .campaign_info_header{
   font-size:0.85rem;
@@ -140,6 +148,7 @@
   color:black;
   margin-top:5px;
   margin-bottom:10px;
+  padding-bottom: 20px;
 }
 .per_month{
   color: black;
@@ -170,9 +179,10 @@
 
 .offering_items{
   text-align:left !important;
+  padding-bottom: 20px;
 }
 .offer_item{
-  font-size:0.85rem;
+  font-size:1rem;
   color: #767676;
   font-family: duplex-sans-semibold;
   margin-bottom:0px !important;
@@ -182,7 +192,7 @@
 }
 
 .btn{
- font-size: 0.8rem !important;
+ font-size: 1rem !important;
  font-weight: 100;
  font-family: duplex-sans-regular;
 }
@@ -196,7 +206,7 @@
 }
 
 .offer_sub{
-  font-size:0.75rem;
+  font-size:0.85rem;
   color: #767676;
   font-family: duplex-sans-regular;
 }
@@ -426,4 +436,12 @@
 }
 .loading-dots--dot:nth-child(3) {
   animation-delay: 1s;
+}
+.selected_campaign_picture_width{
+ width: 300px;
+}
+iframe {
+   width: 1px;
+   min-width: 100%;
+   *width: 100%;
 }

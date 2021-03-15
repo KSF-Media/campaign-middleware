@@ -1,37 +1,33 @@
-The project consists of 2 major parts. The frontend (found in the .html .css and fonts files) and the middleware for WordPress which can be found in the .php file.
+The project consists of 2 major parts. The frontend (found in the .html files in the root of this folder) and the middleware for WordPress (containing fonts, .css .js .php) which can be found in the campaign-pages folder in the root of this folder.
 
-To get this to work you will have to import the .php file into wordpress as a plugin and activate it.
-Then you follow the instructions found in the ksf-campaign-pages-html repo
+To get this to work you will have to import a zipped version of the campaign-pages folder into wordpress as a plugin and activate it.
 
 How to import the plugin and activate it: 
-1. Zip everything in this folder but the HTML file
+1. Zip the campaign-pages folder
 2. Go to the wordpress admin dashboard and click Plugins > Add New
 3. In the upperleft corner select `Upload Plugin`
 4. Drag-and-drop the zip folder created above
 5. Go to Plugins > Installed plugins and click Activate on the ksf-campaign-pages-php
 
-For staging and prod there aren't really any smart env. management tools for wordpress unless hosting the wordpress server yourself. So we will have to go and manually change the endpoints if we are going to prod.
+For staging and prod there aren't really any smart env. management tools for wordpress unless hosting the wordpress server yourself (you will need to talk to Håkan about setting up .env variables if going further with this project). So we will have to go and manually change the endpoints if we are going to prod.
 Therefor, go into the campaign-pages.php and replace all occurences of `staging` with `api` to have the correct
 endpoints in the WP middleware and go into the JS file and comment the localhost url and uncomment the ksf url.
+I made it so that you simply need to uncomment and comment respective stages of dev.
 
-Still some error handling and figuring out the .env variables in wordpress left to do.
-Just put in the staging API endpoints statically for now.
-
-Then to get the HTML, CSS and JS components to work you will first need to upload the campaign-pages folder
-to your wordpress site.
-
-HOW TO:
-1. Start by replacing the URLs in the JS file with the appropriate wordpress url. i.e. url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/forgot-password'
-2. Zip the campaign-pages folder and upload it to your wordpress site.
-3. Copy the HTML file content and paste it into a a HTML snippet in your wordpress page.
+HOW TO PUT THE HTML INTO WORDPRESS:
+1. Start by replacing the URLs in the JS file with the appropriate wordpress url. i.e. url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/new'
+2. Copy the HTML file content and paste it into the text section of a new WordPress page.
+3. Make sure that the js and css corresponds to the one on ksfmedia.fi, i.e. `<link rel="stylesheet" href="https://www.ksfmedia.fi/wp-content/plugins/campaign-pages/src/ksf-campaign-pages.css">`
 
 HOW TO ADD CAMPAIGNS:
 
 Simply copy the code snippet below into a text editor, press CTRL+F and replace all occurrences of "REPLACE_ME"
 with a UID, can be the campaignNo but it doesn't really matter since this is just a unique identifier for hiding and showing 
 stuff in the DOM. The most important thing is that you replace: 
-`<input type="hidden" value="4049" id="REPLACE_ME-campaignNo">
-<input type="hidden" value="HBL WEBB" id="REPLACE_ME-packageId">`
+```html
+<input type="hidden" value="4049" id="REPLACE_ME-campaignNo">
+<input type="hidden" value="HBL WEBB" id="REPLACE_ME-packageId">
+```
 with the correct packageId and campaignNo, put these inside the quotes after value.
 
 Last but not least, replace the picture with a URL where you are hosting your campaign images. You can experiment around
@@ -41,7 +37,8 @@ Once you've done that you can safely paste this snippet into the HTML on the cam
 Paste it before a `<!--CAMPAIGN ITEM-->` snippet or after a `<!--ENDING OF CAMPAIGN ITEM-->` snippet.
 
 This is the body of a campaign: 
-`         <!--CAMPAIN ITEM-->
+```html
+         <!--CAMPAIN ITEM-->
           <div class="cards_item">
             <div class="card">
               <div class="img-container">
@@ -81,4 +78,5 @@ This is the body of a campaign:
               </div>
             </div>
           </div>
-          <!--ENDING OF CAMPAIGN ITEM-->`
+          <!--ENDING OF CAMPAIGN ITEM-->
+```
