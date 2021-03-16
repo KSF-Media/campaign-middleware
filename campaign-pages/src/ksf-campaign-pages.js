@@ -134,7 +134,6 @@ function forgotPwModal() {
 $('#campaignFormInit').submit(function (e) {
   e.preventDefault();
   $.ajax({
-    //change this to accurate endpoint
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/new',
     //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/new',
     headers: {
@@ -175,7 +174,6 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
   e.preventDefault();
   $.ajax({
     type: "POST",
-    //change this to accurate endpoint
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
     //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/get-order/',
     headers: {
@@ -201,7 +199,7 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
         $("#payment-successfull").show();
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
-          'event': 'Purchase',
+          'event': 'purchase',
           'ecommerce': {
             'purchase': {
               'actionField': {
