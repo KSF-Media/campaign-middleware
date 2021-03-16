@@ -42,56 +42,56 @@ Paste it before a `<!--CAMPAIGN ITEM-->` snippet or after a `<!--ENDING OF CAMPA
 
 This is the body of a campaign: 
 ```html
-                  <!--CAMPAIGN ITEM-->
-          <div class="cards_item" id="REPLACE_ME-campaign_info_container">
-            <div class="card">
-              <div class="img-container">
-                <img id="REPLACE_ME-picture" src="https://www.ksfmedia.fi/wp-content/uploads/2021/03/HBL-Total-kampanjer-bild.jpg" style="width:100%;">
-                <div class="bottom-right-campaign-image">mån-sön</div>
-              </div>
-              <div class="card_content">
-                <h2 class="card_title" id="REPLACE_ME-text">HBL Total</h2>
-                <p class="card_text">HBL 7 dagar – Ett hemburet bildningspaket</p>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                  <div class="text-center" id="more-REPLACE_ME-drop">
-                    <div class="text-center">
-                      <p class="price-cross">norm. 39.90 € /mån.</p>
-                      <p class="price-actual" id="REPLACE_ME-price">19,95 €</p>
-                      <p id="REPLACE_ME-extra_text_price" class="per_month">/första månadaden</p>
-                      <p class="campaign_info_header">Prenumerationen är fortlöpande</p>
-                      <p class="campaign_info" id="REPLACE_ME-campaign_info">March 31, 2021 23:59:59</p>
-                    </div>
-                    <div id="more-REPLACE_ME-details" style="display:none;" class="hidden-text">
-                      <p class="offer_header">Prenumerationen innehåller</p>
-                      <div class="offering_items">
-                        <p class="offer_item"><i class="fas fa-check"></i> Papperstidningen
-                        <p class="offer_sub">Tryckta tidningen HBL måndag-söndag</p>
-                        </p>
-                        <p class="offer_item"><i class="fas fa-check"></i> Include as many offerings as you need
-                        <p class="offer_sub">Just copy paste the offer item and write a header and a description</p>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <button class="btn btn-show-down dropdown-toggle rounded-pill detail-button"
-                          onclick="moreOrLess(this.id)" id="more-REPLACE_ME">Se detaljer</button>
-                      </div>
-                      <div class="col">
-                        <button class="btn select-button rounded-pill btn-dark" onClick="selectCampaign(this.id)"
-                          id="REPLACE_ME">Välj paket</button>
-                      </div>
-                      <div style="display:none;">
-                      <input type="hidden" value="4136" id="REPLACE_ME-campaignNo">
-                      <input type="hidden" value="HBL_P+D" id="REPLACE_ME-packageId">
-                      <input type="hidden" value="1" id="REPLACE_ME-period">
-                      <input type="hidden" value="3990" id="REPLACE_ME-payAmountCents">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<!--CAMPAIGN ITEM-->
+<div class="cards_item" id="REPLACE_ME-campaign_info_container">
+  <div class="card">
+    <div class="img-container">
+      <img id="REPLACE_ME-picture" src="https://www.ksfmedia.fi/wp-content/uploads/2021/03/HBL-Total-kampanjer-bild.jpg" style="width:100%;">
+      <div class="bottom-right-campaign-image">mån-sön</div>
+    </div>
+    <div class="card_content">
+      <h2 class="card_title" id="REPLACE_ME-text">HBL Total</h2>
+      <p class="card_text">HBL 7 dagar – Ett hemburet bildningspaket</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <div class="text-center" id="more-REPLACE_ME-drop">
+          <div class="text-center">
+            <p class="price-cross">norm. 39.90 € /mån.</p>
+            <p class="price-actual" id="REPLACE_ME-price">19,95 €</p>
+            <p id="REPLACE_ME-extra_text_price" class="per_month">/första månadaden</p>
+            <p class="campaign_info_header">Prenumerationen är fortlöpande</p>
+            <p class="campaign_info" id="REPLACE_ME-campaign_info">March 31, 2021 23:59:59</p>
+          </div>
+          <div id="more-REPLACE_ME-details" style="display:none;" class="hidden-text">
+            <p class="offer_header">Prenumerationen innehåller</p>
+            <div class="offering_items">
+              <p class="offer_item"><i class="fas fa-check"></i> Papperstidningen
+              <p class="offer_sub">Tryckta tidningen HBL måndag-söndag</p>
+              </p>
+              <p class="offer_item"><i class="fas fa-check"></i> Include as many offerings as you need
+              <p class="offer_sub">Just copy paste the offer item and write a header and a description</p>
+              </p>
             </div>
           </div>
-          <!--ENDING OF CAMPAIGN ITEM-->
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-show-down dropdown-toggle rounded-pill detail-button"
+                onclick="moreOrLess(this.id)" id="more-REPLACE_ME">Se detaljer</button>
+            </div>
+            <div class="col">
+              <button class="btn select-button rounded-pill btn-dark" onClick="selectCampaign(this.id)"
+                id="REPLACE_ME">Välj paket</button>
+            </div>
+            <div style="display:none;">
+            <input type="hidden" value="4136" id="REPLACE_ME-campaignNo">
+            <input type="hidden" value="HBL_P+D" id="REPLACE_ME-packageId">
+            <input type="hidden" value="1" id="REPLACE_ME-period">
+            <input type="hidden" value="3990" id="REPLACE_ME-payAmountCents">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--ENDING OF CAMPAIGN ITEM-->
 ```
