@@ -241,7 +241,7 @@
 .contact_form label {
   font-family: duplex-sans-regular;
 }
-.contact_form input[type="text"], input[type="password"] {
+.contact_form select, input[type="text"], input[type="password"], input[type="email"] {
   background-color: #F8F8F8;
   border-radius: 0px;
   border-color: #F8F8F8;

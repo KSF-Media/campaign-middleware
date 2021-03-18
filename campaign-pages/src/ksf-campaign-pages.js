@@ -142,6 +142,12 @@ $('#campaignFormInit').submit(function (e) {
     type: "POST",
     data: $(this).serialize(),
     beforeSend: function () {
+      console.log(this.data);
+      if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
+        $("#error_text").show();
+        $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
+        return false;
+      }
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'event': 'Campaign_vetrina_click',

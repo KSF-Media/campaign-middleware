@@ -350,18 +350,18 @@
                 <div class="row">
                   <div class="col-md-5">
                     <label for="email">Epost</label><br>
-                    <input class="form-control" type="text" id="email" name="emailAddress" required><br>
+                    <input class="form-control" type="email" id="email" name="emailAddress" required><br>
                   </div>
                   <div class="col-md-5">
                     <label for="password">Lösenord</label>
-                    <input class="form-control" type="password" id="password" name="password" required>
+                    <input class="form-control" type="password" id="password" name="password" minlength="6" required>
                   </div>
                 </div>
                 <div id="new-customer">
                   <div class="row">
                     <div class="col-md-5">
                       <label for="confirmPassword">Återupprepa lösenord</label><br>
-                      <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
+                      <input class="form-control" type="password" id="confirmPassword" minlength="6" name="confirmPassword"
                         required><br>
                     </div>
                     <div class="col-md-5">
@@ -386,7 +386,7 @@
                     </div>
                     <div class="col-md-5">
                       <label for="zipcode">Postkod</label><br>
-                      <input class="form-control" type="text" id="zipcode" name="zipCode" required><br>
+                      <input class="form-control" type="text" id="zipcode" name="zipCode" required pattern="[0-9]{5}" title="5 siffror, t.ex. 00160"><br>
                     </div>
                   </div>
                   <div class="row">
@@ -395,8 +395,15 @@
                       <input class="form-control" type="text" id="city" name="city" required><br>
                     </div>
                     <div class="col-md-5">
-                      <label for="country">Land</label><br>
-                      <input class="form-control" type="text" id="country" name="country" required><br>
+                      <label class="form-label" for="country">Land</label><br>
+                      <select class="form-select" type="text" id="country" name="country" required>
+                        <option selected disabled value="">Land...</option>
+                        <option value="Finland">Finland</option>
+                        <option value="Åland">Åland</option>
+                        <option value="Sverige">Sverige</option>
+                        <option value="Norge">Norge</option>
+                        <option value="Danmark">Danmark</option>
+                      </select>
                     </div>
                   </div>
                 </div>
