@@ -26,6 +26,30 @@ $(function () {
     }
   });
 });
+
+$(function () {
+  let parCheck = getParameterByName('campaign');
+  let test = $('.card').find("input[value='"+parCheck+"']").attr('id');
+  console.log('working with', test);
+  if(test){
+    selectCampaign(test.slice(0,-11));
+    $([document.documentElement, document.body]).animate({
+      scrollTop: $("#info_section").offset().top
+  }, 500);
+  }else{
+    console.log('absent');
+  }
+});
+
+function getParameterByName(name, url = window.location.href) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
 function moreOrLess(id) {
   var detailText = document.getElementById(id + '-details');
   var drop = document.getElementById(id + '-drop');
