@@ -18,6 +18,13 @@ add_action( 'rest_api_init', function () {
    ) );
  } );
 
+ add_action( 'rest_api_init', function () {
+  register_rest_route( 'ksf-campaign/v1', '/new-paper', array(
+    'methods' => 'POST',
+    'callback' => 'make_api_call_campaign_paper_invoice'
+  ) );
+} );
+
 add_action( 'rest_api_init', function () {
   register_rest_route( 'ksf-campaign/v1', '/get-order', array(
     'methods' => 'POST',
@@ -30,7 +37,8 @@ add_action( 'rest_api_init', function () {
      403=>'Fel användarnamn eller lösenord',
      400=>'Någonting gick fel. Var god granska att du valt en kampanj samt fyllt i rätt information.',
      500=>'Någonting gick fel. Var god försök igen.',
-     404=>'Någonting gick fel med din prenumeration. Var god försök igen.'
+     404=>'Någonting gick fel med din prenumeration. Var god försök igen.',
+	 103=>'Angiven kampanjkod är felaktig'
    );
    return $errorObj[$e];
  }
@@ -49,6 +57,30 @@ add_action( 'rest_api_init', function () {
    $order = makeOrder($user, $body);
    //creates the processing for order and returns the terminal URL for Nets
    $payment = goToPayment($user, $order);
+   return $payment;
+   exit;
+ }catch (Exception $e){
+   $code = $e->getMessage();
+   return array('code'=>$code,'message'=>errorCodeHandler($code));
+   exit;
+
+ }
+ }
+
+  function make_api_call_campaign_paper_invoice( WP_REST_Request $request ) {
+   //get input parameters
+   $body = $request->get_params();
+   //throws error if body is empty
+   if ( empty( $body ) ) {
+     return new WP_Error( 'no_body', $body , array( 'status' => 404 ) );
+   }
+   //gets the user, either existing one or new one through persona
+  try{
+   $user = getUser($body);
+   //creates an order request to bottega
+   $order = makeOrder($user, $body);
+   //creates the processing for order and returns the terminal URL for Nets
+   $payment = goToPaymentPaperInvoice($user, $order);
    return $payment;
    exit;
  }catch (Exception $e){
@@ -90,8 +122,6 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   );
   $formattedSignUpForm = wp_json_encode($orderObj);
   $options = formatJsonRequestBottega($formattedSignUpForm, $user->{'uuid'}, $user->{'token'});
-  //uncomment staging comment staging depending on env.
-  //$response = wp_remote_post( 'https://bottega.staging.ksfmedia.fi/v1/order', $options);
   $response = wp_remote_post( 'https://bottega.api.ksfmedia.fi/v1/order', $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
@@ -108,8 +138,6 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   );
   $formattedPaymentObj = wp_json_encode($paymentObj);
   $options = formatJsonRequestBottega($formattedPaymentObj, $user->{'uuid'}, $user->{'token'});
-  //uncomment staging comment staging depending on env.
-  //$response = wp_remote_post( "https://bottega.staging.ksfmedia.fi/v1/order/{$orderNumber}/pay", $options);
   $response = wp_remote_post( "https://bottega.api.ksfmedia.fi/v1/order/{$orderNumber}/pay", $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
@@ -126,6 +154,24 @@ function make_order_call_campaign( WP_REST_Request $request ) {
 }
 }
 
+ function goToPaymentPaperInvoice($user, $order){
+  $orderNumber = $order->{'number'};
+  $paymentObj = array (
+    'paymentOption' => "PaperInvoice"
+  );
+  $formattedPaymentObj = wp_json_encode($paymentObj);
+  $options = formatJsonRequestBottega($formattedPaymentObj, $user->{'uuid'}, $user->{'token'});
+  $response = wp_remote_post( "https://bottega.api.ksfmedia.fi/v1/order/{$orderNumber}/pay", $options);
+  if($response['response']['code']!=200){
+    throw new Exception($response['response']['code']);
+  }else{
+    $finalResponse = array (
+    'code' => 200
+  );
+  return $finalResponse;
+}
+}
+
  function getExistingUser($body){
   $userObj = array(
     'username' => $body['emailAddress'],
@@ -133,8 +179,6 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   );
   $formattedSignUpForm = wp_json_encode($userObj);
   $options = formatJsonRequestPersona($formattedSignUpForm);
-  //uncomment staging comment staging depending on env.
-  //$response = wp_remote_post( 'https://persona.staging.ksfmedia.fi/v1/login', $options);
   $response = wp_remote_post( 'https://persona.api.ksfmedia.fi/v1/login', $options);
 
   if($response['response']['code']!=200){
@@ -148,8 +192,6 @@ function make_order_call_campaign( WP_REST_Request $request ) {
  function createPollingRequest($body){
   $orderNumber = $body['orderNumber'];
   $options = formatJsonGetRequestBottega($body['uuid'],$body['token']);
-  //uncomment staging comment staging depending on env.
-  //$response = wp_remote_get( "https://bottega.staging.ksfmedia.fi/v1/order/$orderNumber", $options);
   $response = wp_remote_get( "https://bottega.api.ksfmedia.fi/v1/order/$orderNumber", $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);
@@ -181,8 +223,6 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   );
   $formattedSignUpForm = wp_json_encode($userObj);
   $options = formatJsonRequestPersona($formattedSignUpForm);
-  //uncomment staging comment staging depending on env.
-  //$response = wp_remote_post( 'https://persona.staging.ksfmedia.fi/v1/users', $options);
   $response = wp_remote_post( 'https://persona.api.ksfmedia.fi/v1/users', $options);
   if($response['response']['code']!=200){
     throw new Exception($response['response']['code']);

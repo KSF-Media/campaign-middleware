@@ -33,6 +33,45 @@
   padding: 32px;
   color:white;
 }
+@media only screen and (max-width: 600px) {
+  .banner .header_container {
+	text-align:center !important;
+}
+	.banner img .akademen_logo{
+	text-align:center !important;
+}
+}
+.banner {
+  text-align:center;
+  padding: 24px;
+  color:white;
+  font-family: duplex-sans-regular;
+  font-size:1.2rem;
+  background-color:#00724f;
+}
+.banner .header_container {
+	text-align:right;
+}
+
+.banner img{
+  height:20px;
+  color:white;
+  max-height:5.3rem;
+  width:auto;
+  margin-top: 8px !important;
+}
+.banner img .akademen_logo{
+	text-align:left;
+}
+.sngl-page-btn{
+  padding-top:20% !important;
+}
+.card_one_pager {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  background-color:white;
+  max-width: 90%;
+}
 
 .row_column {
   display: -ms-flexbox; /* IE 10 */
@@ -45,6 +84,26 @@
 
 .card_container_background {
     background: #F8F8F8;
+}
+.card_container_background_one_pager {
+  min-height:80%;
+  padding-top:7%;
+  padding-bottom:10%;
+  width: 100%;
+  background-color: white; /* fallback color */
+  background-image: url("https://www.ksfmedia.fi/wp-content/uploads/2021/04/akademen-bg-bild.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.card_img_one_pager{
+ padding-top:10%;
+}
+
+.one_pager_campaign_code{
+	margin-bottom:3rem;
+}
+.side_dash_one_pager{
+  border-left: 2px solid grey;
 }
 .card_container_margin {
     margin-left: 5%;
@@ -131,6 +190,19 @@
   color:#BCBCBC;
   padding-bottom: 20px;
 }
+.more_info_one_pager .campaign_info{
+  font-size:1rem;
+  font-family: duplex-sans-regular;
+  color:white;
+  padding-bottom: 20px;
+}
+.more_info_one_pager .price-actual{
+  font-size:2.5rem;
+  color:white !important;
+}
+.more_info_one_pager .per_month{
+  color: white;
+}
 .campaign_info_header{
   font-size:0.85rem;
   font-family: duplex-sans-regular;
@@ -176,6 +248,56 @@
 .offering_items{
   text-align:left !important;
   padding-bottom: 20px;
+}
+.offer_one_pager{
+  margin-right:10%;
+  margin-left:10%;
+  margin-bottom: 3%;
+  margin-top:0%;
+}
+.card_title_one_pager{
+  text-align: left;
+  font-family: duplex-sans-semibold;
+  color: black;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 20px;
+  margin-left:2%;
+  display: inline-block;
+}
+.offer_header_one_pager{
+  font-family: duplex-sans-semibold;
+  font-weight: bold;
+  text-align:left !important;
+}
+.offering_items_one_pager{
+  text-align:left !important;
+  font-size:50% !important;
+}
+.offer_item_one_pager{
+  font-size:0.9rem;
+  color: #767676;
+  font-family: duplex-sans-semibold;
+  margin-bottom:0px !important;
+}
+.offer_item_one_pager i {
+  color: #00810A;
+}
+.offer_sub_one_pager{
+  font-size:0.75rem;
+  color: #767676;
+  font-family: duplex-sans-regular;
+  margin-bottom:3px !important;
+}
+.more_info_one_pager{
+  padding:12%;
+  background-color:black;
+  height: 100%;
+  display: grid;
+}
+.offering_items_one_pager .offer_item{
+  text-align:left !important;
 }
 .offer_item{
   font-size:1rem;
@@ -341,7 +463,24 @@
   margin-right:20%;
   padding-top:2rem;
 }
+.footer_bg{
+  background: #F8F8F8;
+  width:100%;
+}
+.picture_footer_one_pager{
+  text-align: center;
+  bottom: 0;
+  margin-left:20%;
+  margin-right:20%;
+  background: #F8F8F8;
+}
 .picture_footer img {
+  opacity: 0.3;
+  max-height:5.3rem;
+  width:auto;
+  padding:2rem;
+}
+.picture_footer_one_pager img {
   opacity: 0.3;
   max-height:5.3rem;
   width:auto;

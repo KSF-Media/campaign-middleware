@@ -29,15 +29,13 @@ $(function () {
 
 $(function () {
   let parCheck = getParameterByName('campaign');
-  let test = $('.card').find("input[value='"+parCheck+"']").attr('id');
-  console.log('working with', test);
+  let test = $('.card').find("input[value='"+parCheck+"']").attr('id') || $('.card_one_pager').find("input[value='"+parCheck+"']").attr('id');
   if(test){
     selectCampaign(test.slice(0,-11));
     $([document.documentElement, document.body]).animate({
       scrollTop: $("#info_section").offset().top
   }, 500);
   }else{
-    console.log('absent');
   }
 });
 
@@ -166,12 +164,11 @@ $('#campaignFormInit').submit(function (e) {
     type: "POST",
     data: $(this).serialize(),
     beforeSend: function () {
-      console.log(this.data);
-      if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
+	  /*if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
         $("#error_text").show();
         $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
         return false;
-      }
+      }*/
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'event': 'Campaign_vetrina_click',
@@ -190,6 +187,48 @@ $('#campaignFormInit').submit(function (e) {
         document.getElementById("paymentModalSrc").src = result.url;
         $('#paymentModal').modal('show');
         initiateOrderChecker(e, result.uuid, result.token, result.orderNumber);
+      }
+    },
+    error: function (e) {
+      $("#divLoading").hide();
+      $("#error_text").show();
+      $('#error_text').html('Någonting gick fel. Försök pånytt.');
+    }
+  });
+});
+
+$('#campaignFormOnePagerInit').submit(function (e) {
+  e.preventDefault();
+  $.ajax({
+    url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/new-paper',
+    //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/new-paper',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    type: "POST",
+    data: $(this).serialize(),
+    beforeSend: function () {
+	  /*if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
+        $("#error_text").show();
+        $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
+        return false;
+      }*/
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        'event': 'Campaign_vetrina_click',
+        'package': document.getElementById('campaignNo').value
+      });
+
+      // Show loader container
+      $("#divLoading").css('display', 'flex');
+    },
+    success: function (result) {
+      $("#divLoading").hide();
+      if (result.code != 200) {
+        $("#error_text").show();
+        $('#error_text').html(result.message);
+      } else {
+		$("#one-pager-successfull").show();
       }
     },
     error: function (e) {
