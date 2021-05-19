@@ -116,8 +116,6 @@ function make_order_call_campaign( WP_REST_Request $request ) {
  function makeOrder($user, $body){
   $orderObj = array(
     'packageId' => $body['packageId'],
-    'period' => (int)$body['period'], //placeholder since this value is actually not used in the backend but required
-    'payAmountCents' => (int)$body['payAmountCents'], //placeholder since this value is actually not used in the backend but required
     'campaignNo' => (int)$body['campaignNo']
   );
   $formattedSignUpForm = wp_json_encode($orderObj);

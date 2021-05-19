@@ -93,8 +93,6 @@ function selectCampaign(id) {
   document.getElementById("selected_campaign_indicator").style.display = 'inline-block';
   document.getElementById("campaignNo").value = document.getElementById(id + '-campaignNo').value;
   document.getElementById("packageId").value = document.getElementById(id + '-packageId').value;
-  document.getElementById("period").value = document.getElementById(id + '-period').value;
-  document.getElementById("payAmountCents").value = document.getElementById(id + '-payAmountCents').value;
   $([document.documentElement, document.body]).animate({
     scrollTop: $("#info_section").offset().top
 }, 500);
