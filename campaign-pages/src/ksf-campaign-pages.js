@@ -1,3 +1,5 @@
+// does the countdown until the campaign ends, required format is i.e August 31, 2021 23:59:59 inside
+//campaign_info class
 $(function () {
   $('.campaign_info').each(function (idx, el) {
     var countDown = new Date(el.innerHTML).getTime();
@@ -20,6 +22,8 @@ $(function () {
     }
 
   });
+
+  //cleans up extra padding that WordPress for some reason adds. dont change
   $('p').each(function (index, item) {
     if ($.trim(item.innerHTML) == "") {
       $(item).not('[id],[class]').remove();
@@ -27,6 +31,7 @@ $(function () {
   });
 });
 
+//onload, if url contains parameter campaign it preselects the given campaign based on its campaignNo
 $(function () {
   let parCheck = getParameterByName('campaign');
   let test = $('.card').find("input[value='"+parCheck+"']").attr('id') || $('.card_one_pager').find("input[value='"+parCheck+"']").attr('id');
@@ -48,6 +53,7 @@ function getParameterByName(name, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+//drop down show more for the individual cards
 function moreOrLess(id) {
   var detailText = document.getElementById(id + '-details');
   var drop = document.getElementById(id + '-drop');
@@ -63,7 +69,7 @@ function moreOrLess(id) {
     drop.classList.add("dropup");
   }
 }
-
+//can probably be re-written but works fine in this state, select campaign and assigns the checkout items.
 function selectCampaign(id) {
   $('#submit-button').prop('disabled', !$("#terms-accept").is(':checked'));
   var currentCampaign = document.getElementById("selectedCampaign");
@@ -129,6 +135,7 @@ $('#paymentModal').on('hidden.bs.modal', function () {
   location.reload();
  });
 
+//simple function for assigning required to certain inputs if customer is new/removing if old
 $(function () {
   $("#checkExisting").click(function () {
     if ($(this).is(":checked")) {
