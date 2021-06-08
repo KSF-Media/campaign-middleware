@@ -48,27 +48,27 @@ This is the body of a campaign:
 
 ```html
 <!--CAMPAIGN ITEM-->
-<div class="cards_item" id="3301-campaign_info_container">
+<div class="cards_item" id="REPLACE_ME-campaign_info_container">
     <div class="card">
         <div class="img-container">
-            <img id="3301-picture"
+            <img id="REPLACE_ME-picture"
                 src="https://www.ksfmedia.fi/wp-content/uploads/2021/05/HBL-365-nurminen.png"
                 style="width:100%;">
             <div class="bottom-right-campaign-image ">digitalt</div>
         </div>
         <div class="card_content">
-            <h2 class="card_title" id="3301-text">HBL 365</h2>
+            <h2 class="card_title" id="REPLACE_ME-text">HBL 365</h2>
             <p class="card_text">Kvalitetsjournalistik när, var och hur du vill</p>
             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                <div class="text-center" id="more-3301-drop">
+                <div class="text-center" id="more-REPLACE_ME-drop">
                     <div class="text-center">
                         <p class="price-cross">norm. 17.90 € /mån.</p>
-                        <p class="price-actual" id="3301-price">49 €</p>
-                        <p id="3301-extra_text_price" class="per_month">/6 mån.</p>
+                        <p class="price-actual" id="REPLACE_ME-price">49 €</p>
+                        <p id="REPLACE_ME-extra_text_price" class="per_month">/6 mån.</p>
                         <p class="campaign_info_header">Prenumerationen är fortlöpande</p>
-                        <p class="campaign_info" id="3301-campaign_info">August 31, 2021 23:59:59</p>
+                        <p class="campaign_info" id="REPLACE_ME-campaign_info">August 31, 2021 23:59:59</p>
                     </div>
-                    <div id="more-3301-details" style="display:none;" class="hidden-text">
+                    <div id="more-REPLACE_ME-details" style="display:none;" class="hidden-text">
                         <p class="offer_header">Prenumerationen innehåller</p>
                         <div class="offering_items">
                             <p class="offer_item"><i class="fas fa-check"></i> E-tidningsappen HBL
@@ -99,16 +99,16 @@ This is the body of a campaign:
                         <div class="col">
                             <button
                                 class="btn btn-show-down dropdown-toggle rounded-pill detail-button"
-                                onclick="moreOrLess(this.id)" id="more-3301">Se detaljer</button>
+                                onclick="moreOrLess(this.id)" id="more-REPLACE_ME">Se detaljer</button>
                         </div>
                         <div class="col">
                             <button class="btn select-button rounded-pill btn-dark"
-                                onClick="selectCampaign(this.id)" id="3301">Välj paket</button>
+                                onClick="selectCampaign(this.id)" id="REPLACE_ME">Välj paket</button>
                         </div>
                     </div>
                     <div style="display:none;">
-                        <input type="hidden" value="4182" id="3301-campaignNo">
-                        <input type="hidden" value="HBL 365" id="3301-packageId">
+                        <input type="hidden" value="4182" id="REPLACE_ME-campaignNo">
+                        <input type="hidden" value="HBL 365" id="REPLACE_ME-packageId">
                     </div>
                 </div>
             </div>
