@@ -103,6 +103,7 @@ function selectCampaign(id) {
     scrollTop: $("#info_section").offset().top
 }, 500);
 
+//GTM and GA datalayer
   window.dataLayer = window.dataLayer || [];
   dataLayer.push({
     'event': 'addToCart',
@@ -125,6 +126,7 @@ function selectCampaign(id) {
 $("#terms-accept").click(function () {
   $('#submit-button').prop('disabled', !$(this).is(':checked') || !$("#selectedCampaign").val());
   window.dataLayer = window.dataLayer || [];
+  //GTM and GA datalayer
   window.dataLayer.push({
     'event': 'Campaign_accept_terms',
     'package': document.getElementById('campaignNo').value
@@ -150,6 +152,7 @@ $(function () {
   });
 });
 
+//check if this is needed
 $("#forgot-password").click(function () {
   $('#forgotPasswordModal').modal('show');
 });
