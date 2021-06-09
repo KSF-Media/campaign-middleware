@@ -177,6 +177,7 @@ $('#campaignFormInit').submit(function (e) {
         $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
         return false;
       }*/
+       //GTM and GA datalayer
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'event': 'Campaign_vetrina_click',
@@ -274,6 +275,7 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
         $("#paymentModalSrc").hide();
         $("#payment-loading").hide();
         $("#payment-successfull").show();
+         //GTM and GA datalayer
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           'event': 'purchase',
