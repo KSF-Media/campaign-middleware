@@ -33,15 +33,27 @@ add_action( 'rest_api_init', function () {
 } );
 
  function errorCodeHandler($e){
-   $errorObj = array(
-     403=>'Fel användarnamn eller lösenord',
-     400=>'Någonting gick fel. Var god granska att du valt en kampanj samt fyllt i rätt information.',
-     500=>'Någonting gick fel. Var god försök igen.',
-     404=>'Någonting gick fel med din prenumeration. Var god försök igen.',
-	 103=>'Angiven kampanjkod är felaktig'
-   );
-   return $errorObj[$e];
- }
+   $error_code = $e['code'];
+   $error_message = $e['message'];
+
+   switch ($error_code) {
+    case 403:
+      return 'Fel användarnamn eller lösenord';
+    case 400:
+      if ($error_message == "email_address_in_use_registration") {
+        return 'Email address already in use.';
+      } else {
+        return 'testing - Någonting gick fel. Var god granska att du valt en kampanj samt fyllt i rätt information.';
+      }
+    case 500:
+      return 'Någonting gick fel. Var god försök igen.';
+    case 404:
+      return 'Någonting gick fel med din prenumeration. Var god försök igen.';
+    case 103:
+      return 'Angiven kampanjkod är felaktig';
+    default:
+      return 'Någonting gick fel';
+  }
 
  function make_api_call_campaign( WP_REST_Request $request ) {
    //get input parameters
@@ -223,7 +235,15 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   $options = formatJsonRequestPersona($formattedSignUpForm);
   $response = wp_remote_post( 'https://persona.api.ksfmedia.fi/v1/users', $options);
   if($response['response']['code']!=200){
-    throw new Exception($response['response']['code']);
+    $message = '';
+    if (array_key_exists('email_address_in_use_registration', $response['body'])) {
+      $message = "email_address_in_use_registration"
+    }
+    $error_response = array(
+      'code' => $response['response']['code'],
+      'message' => $message
+    )
+    throw new Exception($error_response);
   }else{
   $responseBody = json_decode(wp_remote_retrieve_body( $response ));
   return $responseBody;
