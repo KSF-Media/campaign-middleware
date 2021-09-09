@@ -33,6 +33,33 @@
   padding: 32px;
   color:white;
 }
+.big-header{
+	height:500px!important
+}
+
+.disclaimer_text{
+	font-family: duplex-sans-light;
+	padding:50px;
+}
+
+@media only screen and (max-width: 600px) {
+ .big-header{
+	height:200px!important
+}
+}
+@media(min-width: 600px) {
+ .big-header-content h1{
+	font-size:40px !important;
+}
+}
+.big-header-content {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
 @media only screen and (max-width: 600px) {
   .banner .header_container {
 	text-align:center !important;
@@ -48,6 +75,13 @@
   font-family: duplex-sans-regular;
   font-size:1.2rem;
   background-color:#00724f;
+}
+.banner_no_bg {
+  text-align:center;
+  padding: 40px;
+  color:white;
+  font-family: duplex-sans-regular;
+  font-size:3rem;
 }
 .banner .header_container {
 	text-align:right;
@@ -322,6 +356,10 @@
   background-color:#00810A !important;
   color:white !important;
 }
+.btn-choose-jr{
+  background-color:#C61C53 !important;
+  color:white !important;
+}
 
 .offer_sub{
   font-size:0.85rem;
@@ -376,9 +414,22 @@
  padding: .375rem 1.75rem !important;
 }
 
+.btn-order-jr{
+ font-size:1rem !important;
+ background-color: #C61C53 !important;
+ color: #F8F8F8 !important;
+ padding: .375rem 1.75rem !important;
+}
+
 .btn-chosen{
   font-size:1rem !important;
   background-color: #00810A !important;
+  color: #F8F8F8 !important;
+  padding: .375rem 1.75rem !important;
+ }
+.btn-chosen-jr{
+  font-size:1rem !important;
+  background-color: #C61C53 !important;
   color: #F8F8F8 !important;
   padding: .375rem 1.75rem !important;
  }

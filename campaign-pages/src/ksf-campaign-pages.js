@@ -34,20 +34,20 @@ $(function () {
 //onload, if url contains parameter campaign it preselects the given campaign based on its campaignNo
 $(function () {
   let parCheck = getParameterByName('campaign');
-  let test = $('.card').find("input[value='"+parCheck+"']").attr('id') || $('.card_one_pager').find("input[value='"+parCheck+"']").attr('id');
-  if(test){
-    selectCampaign(test.slice(0,-11));
+  let test = $('.card').find("input[value='" + parCheck + "']").attr('id') || $('.card_one_pager').find("input[value='" + parCheck + "']").attr('id');
+  if (test) {
+    selectCampaign(test.slice(0, -11));
     $([document.documentElement, document.body]).animate({
       scrollTop: $("#info_section").offset().top
-  }, 500);
-  }else{
+    }, 500);
+  } else {
   }
 });
 
 function getParameterByName(name, url = window.location.href) {
   name = name.replace(/[\[\]]/g, '\\$&');
   var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(url);
+    results = regex.exec(url);
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
@@ -69,7 +69,6 @@ function moreOrLess(id) {
     drop.classList.add("dropup");
   }
 }
-//can probably be re-written but works fine in this state, select campaign and assigns the checkout items.
 function selectCampaign(id) {
   $('#submit-button').prop('disabled', !$("#terms-accept").is(':checked'));
   var currentCampaign = document.getElementById("selectedCampaign");
@@ -77,17 +76,29 @@ function selectCampaign(id) {
     currentCampaign.value = id;
     document.getElementById(id).innerHTML = "Paket valt";
     document.getElementById(id).classList.remove("btn-dark");
-    document.getElementById(id).classList.add("btn-choose");
+    //check if classlist contains jr indicating another color scheme
+    if (document.getElementById(id).classList.contains("jr")) {
+      document.getElementById(id).classList.add("btn-choose-jr");
+    } else {
+      document.getElementById(id).classList.add("btn-choose");
+    }
+
     $("#error_text").hide();
     document.getElementById('campaign_selected').style.display = "inline";
   } else {
     document.getElementById(currentCampaign.value).innerHTML = "Välj paket";
     document.getElementById(currentCampaign.value).classList.add("btn-dark");
-    document.getElementById(currentCampaign.value).classList.remove("btn-choose");
+
+    if (document.getElementById(id).classList.contains("jr")) {
+      document.getElementById(currentCampaign.value).classList.remove("btn-choose-jr");
+      document.getElementById(id).classList.add("btn-choose-jr");
+    } else {
+      document.getElementById(id).classList.add("btn-choose");
+      document.getElementById(currentCampaign.value).classList.remove("btn-choose");
+    }
 
     document.getElementById(id).innerHTML = "Paket valt";
     document.getElementById(id).classList.remove("btn-dark");
-    document.getElementById(id).classList.add("btn-choose");
     currentCampaign.value = id;
 
   }
@@ -95,13 +106,13 @@ function selectCampaign(id) {
   document.getElementById("selected_campaign_text").innerHTML = document.getElementById(id + '-text').innerHTML;
   document.getElementById("selected_campaign_price").innerHTML = document.getElementById(id + '-price').innerHTML;
   document.getElementById("selected_campaign_price2").innerHTML = document.getElementById(id + '-price').innerHTML;
-  document.getElementById("extra_text_price").innerHTML = document.getElementById(id+'-extra_text_price').innerHTML;
+  document.getElementById("extra_text_price").innerHTML = document.getElementById(id + '-extra_text_price').innerHTML;
   document.getElementById("selected_campaign_indicator").style.display = 'inline-block';
   document.getElementById("campaignNo").value = document.getElementById(id + '-campaignNo').value;
   document.getElementById("packageId").value = document.getElementById(id + '-packageId').value;
   $([document.documentElement, document.body]).animate({
     scrollTop: $("#info_section").offset().top
-}, 500);
+  }, 500);
 
 //GTM and GA datalayer
   window.dataLayer = window.dataLayer || [];
@@ -135,7 +146,7 @@ $("#terms-accept").click(function () {
 
 $('#paymentModal').on('hidden.bs.modal', function () {
   location.reload();
- });
+});
 
 //simple function for assigning required to certain inputs if customer is new/removing if old
 $(function () {
@@ -172,12 +183,12 @@ $('#campaignFormInit').submit(function (e) {
     type: "POST",
     data: $(this).serialize(),
     beforeSend: function () {
-	  /*if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
-        $("#error_text").show();
-        $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
-        return false;
-      }*/
-       //GTM and GA datalayer
+      /*if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
+          $("#error_text").show();
+          $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
+          return false;
+        }*/
+      //GTM and GA datalayer
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'event': 'Campaign_vetrina_click',
@@ -217,11 +228,11 @@ $('#campaignFormOnePagerInit').submit(function (e) {
     type: "POST",
     data: $(this).serialize(),
     beforeSend: function () {
-	  /*if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
-        $("#error_text").show();
-        $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
-        return false;
-      }*/
+      /*if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
+          $("#error_text").show();
+          $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
+          return false;
+        }*/
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         'event': 'Campaign_vetrina_click',
@@ -237,7 +248,7 @@ $('#campaignFormOnePagerInit').submit(function (e) {
         $("#error_text").show();
         $('#error_text').html(result.message);
       } else {
-		$("#one-pager-successfull").show();
+        $("#one-pager-successfull").show();
       }
     },
     error: function (e) {
@@ -275,7 +286,7 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
         $("#paymentModalSrc").hide();
         $("#payment-loading").hide();
         $("#payment-successfull").show();
-         //GTM and GA datalayer
+        //GTM and GA datalayer
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           'event': 'purchase',
