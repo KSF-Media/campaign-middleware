@@ -34,7 +34,7 @@ $(function () {
 // onload, if url contains parameter campaign it preselects the given campaign based on its campaignNo
 $(function () {
   window.dataLayer = window.dataLayer || [];
-  dataLayer.push(dataLayer.push({'event': 'ksf_campaign_page'}))
+  dataLayer.push(dataLayer.push({'event': 'ksf_campaign_page'}));
   let parCheck = getParameterByName('campaign');
   let test = $('.card').find("input[value='" + parCheck + "']").attr('id') || $('.card_one_pager').find("input[value='" + parCheck + "']").attr('id');
   if (test) {
@@ -71,6 +71,7 @@ function moreOrLess(id) {
     drop.classList.add("dropup");
   }
 }
+
 function selectCampaign(id) {
   $('#submit-button').prop('disabled', !$("#terms-accept").is(':checked'));
   var currentCampaign = document.getElementById("selectedCampaign");
