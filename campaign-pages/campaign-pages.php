@@ -35,7 +35,7 @@ add_action( 'rest_api_init', function () {
  function errorCodeHandler($e){
    $errorObj = array(
      403=>'Fel användarnamn eller lösenord',
-     400=>'Någonting gick fel. Var god granska att du valt en kampanj samt fyllt i rätt information.',
+     400=>'Någonting gick fel. Var god granska att du valt en kampanj samt fyllt i rätt information.<br> Om du försöker beställa en papperstidning kan det hända att vi saknar dina adressuppgifter. Var vänlig och besök <a href="https://konto.ksfmedia.fi/" target="__blank"> mitt konto</a>, ange din adress och försök igen.',
      500=>'Någonting gick fel. Var god försök igen.',
      404=>'Någonting gick fel med din prenumeration. Var god försök igen.',
 	 103=>'Angiven kampanjkod är felaktig'
@@ -116,7 +116,8 @@ function make_order_call_campaign( WP_REST_Request $request ) {
  function makeOrder($user, $body){
   $orderObj = array(
     'packageId' => $body['packageId'],
-    'campaignNo' => (int)$body['campaignNo']
+    'campaignNo' => (int)$body['campaignNo'],
+    'orderSource' => 'CampaignPagesSource'
   );
   $formattedSignUpForm = wp_json_encode($orderObj);
   $options = formatJsonRequestBottega($formattedSignUpForm, $user->{'uuid'}, $user->{'token'});
@@ -223,7 +224,15 @@ function make_order_call_campaign( WP_REST_Request $request ) {
   $options = formatJsonRequestPersona($formattedSignUpForm);
   $response = wp_remote_post( 'https://persona.api.ksfmedia.fi/v1/users', $options);
   if($response['response']['code']!=200){
-    throw new Exception($response['response']['code']);
+    $message = '';
+    if (array_key_exists('email_address_in_use_registration', $response['body'])) {
+      $message = "email_address_in_use_registration"
+    }
+    $error_response = array(
+      'code' => $response['response']['code'],
+      'message' => $message
+    )
+    throw new Exception($error_response);
   }else{
   $responseBody = json_decode(wp_remote_retrieve_body( $response ));
   return $responseBody;

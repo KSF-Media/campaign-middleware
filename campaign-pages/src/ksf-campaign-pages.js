@@ -1,4 +1,4 @@
-// does the countdown until the campaign ends, required format is i.e August 31, 2021 23:59:59 inside
+// Does the countdown until the campaign ends, required format is i.e August 31, 2021 23:59:59 inside
 //campaign_info class
 $(function () {
   $('.campaign_info').each(function (idx, el) {
@@ -23,7 +23,7 @@ $(function () {
 
   });
 
-  //cleans up extra padding that WordPress for some reason adds. dont change
+  // Cleans up extra padding that WordPress for some reason adds. dont change
   $('p').each(function (index, item) {
     if ($.trim(item.innerHTML) == "") {
       $(item).not('[id],[class]').remove();
@@ -31,15 +31,17 @@ $(function () {
   });
 });
 
-//onload, if url contains parameter campaign it preselects the given campaign based on its campaignNo
+// onload, if url contains parameter campaign it preselects the given campaign based on its campaignNo
 $(function () {
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push(dataLayer.push({'event': 'ksf_campaign_page'}))
   let parCheck = getParameterByName('campaign');
   let test = $('.card').find("input[value='" + parCheck + "']").attr('id') || $('.card_one_pager').find("input[value='" + parCheck + "']").attr('id');
   if (test) {
     selectCampaign(test.slice(0, -11));
     $([document.documentElement, document.body]).animate({
       scrollTop: $("#info_section").offset().top
-    }, 500);
+  }, 500);
   } else {
   }
 });
@@ -53,7 +55,7 @@ function getParameterByName(name, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-//drop down show more for the individual cards
+// Drop down show more for the individual cards
 function moreOrLess(id) {
   var detailText = document.getElementById(id + '-details');
   var drop = document.getElementById(id + '-drop');
@@ -76,26 +78,27 @@ function selectCampaign(id) {
     currentCampaign.value = id;
     document.getElementById(id).innerHTML = "Paket valt";
     document.getElementById(id).classList.remove("btn-dark");
-    //check if classlist contains jr indicating another color scheme
     if (document.getElementById(id).classList.contains("jr")) {
       document.getElementById(id).classList.add("btn-choose-jr");
+    } else if (document.getElementById(id).classList.contains("js-orange-theme")) {
+      document.getElementById(id).classList.add("btn-choose-orange");
     } else {
-      document.getElementById(id).classList.add("btn-choose");
-    }
-
+    	document.getElementById(id).classList.add("btn-choose");	
+  	}
+	  
     $("#error_text").hide();
     document.getElementById('campaign_selected').style.display = "inline";
   } else {
     document.getElementById(currentCampaign.value).innerHTML = "Välj paket";
     document.getElementById(currentCampaign.value).classList.add("btn-dark");
-
-    if (document.getElementById(id).classList.contains("jr")) {
-      document.getElementById(currentCampaign.value).classList.remove("btn-choose-jr");
-      document.getElementById(id).classList.add("btn-choose-jr");
-    } else {
-      document.getElementById(id).classList.add("btn-choose");
-      document.getElementById(currentCampaign.value).classList.remove("btn-choose");
-    }
+	  
+  if (document.getElementById(id).classList.contains("jr")) {
+  	document.getElementById(currentCampaign.value).classList.remove("btn-choose-jr");
+  	document.getElementById(id).classList.add("btn-choose-jr");	
+	} else {
+	document.getElementById(id).classList.add("btn-choose");
+	document.getElementById(currentCampaign.value).classList.remove("btn-choose");
+	}
 
     document.getElementById(id).innerHTML = "Paket valt";
     document.getElementById(id).classList.remove("btn-dark");
@@ -114,7 +117,7 @@ function selectCampaign(id) {
     scrollTop: $("#info_section").offset().top
   }, 500);
 
-//GTM and GA datalayer
+  // GTM and GA datalayer
   window.dataLayer = window.dataLayer || [];
   dataLayer.push({
     'event': 'addToCart',
@@ -137,7 +140,7 @@ function selectCampaign(id) {
 $("#terms-accept").click(function () {
   $('#submit-button').prop('disabled', !$(this).is(':checked') || !$("#selectedCampaign").val());
   window.dataLayer = window.dataLayer || [];
-  //GTM and GA datalayer
+  // GTM and GA datalayer
   window.dataLayer.push({
     'event': 'Campaign_accept_terms',
     'package': document.getElementById('campaignNo').value
@@ -148,7 +151,7 @@ $('#paymentModal').on('hidden.bs.modal', function () {
   location.reload();
 });
 
-//simple function for assigning required to certain inputs if customer is new/removing if old
+// Simple function for assigning required to certain inputs if customer is new/removing if old
 $(function () {
   $("#checkExisting").click(function () {
     if ($(this).is(":checked")) {
@@ -163,7 +166,7 @@ $(function () {
   });
 });
 
-//check if this is needed
+// Check if this is needed
 $("#forgot-password").click(function () {
   $('#forgotPasswordModal').modal('show');
 });
@@ -183,11 +186,12 @@ $('#campaignFormInit').submit(function (e) {
     type: "POST",
     data: $(this).serialize(),
     beforeSend: function () {
-      /*if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
-          $("#error_text").show();
-          $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
-          return false;
-        }*/
+	  /*if(document.getElementById('password').value!=document.getElementById('confirmPassword').value){
+        $("#error_text").show();
+        $('#error_text').html('Lösenorden matchar ej. Försök pånytt.');
+        return false;
+      }*/
+
       //GTM and GA datalayer
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
@@ -286,7 +290,6 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
         $("#paymentModalSrc").hide();
         $("#payment-loading").hide();
         $("#payment-successfull").show();
-        //GTM and GA datalayer
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           'event': 'purchase',
@@ -294,14 +297,14 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
             'purchase': {
               'actionField': {
                 'id': orderNumber,
-                'revenue': document.getElementById("selected_campaign_price").innerHTML,
+                'revenue': parseFloat(document.getElementById("selected_campaign_price").innerHTML.replace(/[^0-9,]/g, '').replace(',', '.')),
                 'currencyCode': 'EUR',
                 'coupon': "" // if there is a coupon code 
               },
               'products': [{
                 'name': document.getElementById("selected_campaign_text").innerHTML,
                 'id': document.getElementById("campaignNo").value,
-                'price': document.getElementById("selected_campaign_price").innerHTML,
+        				'price': parseFloat(document.getElementById("selected_campaign_price").innerHTML.replace(/[^0-9,]/g, '').replace(',', '.')),
                 'category': 'Package deal',
                 'variant': document.getElementById("packageId").value,
                 'quantity': 1
