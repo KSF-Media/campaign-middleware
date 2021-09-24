@@ -33,27 +33,15 @@ add_action( 'rest_api_init', function () {
 } );
 
  function errorCodeHandler($e){
-   $error_code = $e['code'];
-   $error_message = $e['message'];
-
-   switch ($error_code) {
-    case 403:
-      return 'Fel användarnamn eller lösenord';
-    case 400:
-      if ($error_message == "email_address_in_use_registration") {
-        return 'Email address already in use.';
-      } else {
-        return 'testing - Någonting gick fel. Var god granska att du valt en kampanj samt fyllt i rätt information.';
-      }
-    case 500:
-      return 'Någonting gick fel. Var god försök igen.';
-    case 404:
-      return 'Någonting gick fel med din prenumeration. Var god försök igen.';
-    case 103:
-      return 'Angiven kampanjkod är felaktig';
-    default:
-      return 'Någonting gick fel';
-  }
+   $errorObj = array(
+     403=>'Fel användarnamn eller lösenord',
+     400=>'Någonting gick fel. Var god granska att du valt en kampanj samt fyllt i rätt information.<br> Om du försöker beställa en papperstidning kan det hända att vi saknar dina adressuppgifter. Var vänlig och besök <a href="https://konto.ksfmedia.fi/" target="__blank"> mitt konto</a>, ange din adress och försök igen.',
+     500=>'Någonting gick fel. Var god försök igen.',
+     404=>'Någonting gick fel med din prenumeration. Var god försök igen.',
+	 103=>'Angiven kampanjkod är felaktig'
+   );
+   return $errorObj[$e];
+ }
 
  function make_api_call_campaign( WP_REST_Request $request ) {
    //get input parameters
@@ -128,7 +116,8 @@ function make_order_call_campaign( WP_REST_Request $request ) {
  function makeOrder($user, $body){
   $orderObj = array(
     'packageId' => $body['packageId'],
-    'campaignNo' => (int)$body['campaignNo']
+    'campaignNo' => (int)$body['campaignNo'],
+    'orderSource' => 'CampaignPagesSource'
   );
   $formattedSignUpForm = wp_json_encode($orderObj);
   $options = formatJsonRequestBottega($formattedSignUpForm, $user->{'uuid'}, $user->{'token'});

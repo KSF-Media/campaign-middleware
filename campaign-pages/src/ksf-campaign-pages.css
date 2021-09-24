@@ -323,6 +323,16 @@
   color:white !important;
 }
 
+.btn-choose-jr{
+  background-color:#C61C53 !important;
+  color:white !important;
+}
+
+.btn-choose-orange {
+  background-color:#F07E26 !important;
+  color:white !important;
+}
+
 .offer_sub{
   font-size:0.85rem;
   color: #767676;
@@ -376,12 +386,38 @@
  padding: .375rem 1.75rem !important;
 }
 
+.btn-order-jr{
+ font-size:1rem !important;
+ background-color: #C61C53 !important;
+ color: #F8F8F8 !important;
+ padding: .375rem 1.75rem !important;
+}
+
+.btn-order-orange{
+ font-size:1rem !important;
+ background-color: #C61C53 !important;
+ color: #F8F8F8 !important;
+ padding: .375rem 1.75rem !important;
+}
+
 .btn-chosen{
   font-size:1rem !important;
   background-color: #00810A !important;
   color: #F8F8F8 !important;
   padding: .375rem 1.75rem !important;
  }
+.btn-chosen-jr{
+  font-size:1rem !important;
+  background-color: #C61C53 !important;
+  color: #F8F8F8 !important;
+  padding: .375rem 1.75rem !important;
+ }
+
+.btn-chosen-orange {
+  background-color: #F07E26 !important;
+  color:white !important;
+}
+
  .container_img{
   position: relative;
   text-align: left;
@@ -439,9 +475,6 @@
 }
 .col-md-5 {
   --bs-gutter-x: 1.5rem!important;
-}
-
-.add_section{
 }
 
 .add_section p{
@@ -579,4 +612,35 @@ iframe {
    width: 1px;
    min-width: 100%;
    *width: 100%;
+}
+
+.gift-message {
+  display: flex;
+  align-items: center;
+  min-height: 13vw;
+  justify-content: center;
+  color: white;
+  font-family: duplex-sans-light;
+  font-size: calc(1rem + 0.2vw);
+}
+
+.gift-message__text {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  max-width: 85%;
+  text-align: center;
+}
+
+.gift-message__link {
+  color: white;
+}
+
+.pb-0 {
+  padding-bottom: 0;
+}
+
+.center-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
