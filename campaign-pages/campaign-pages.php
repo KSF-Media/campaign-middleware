@@ -165,7 +165,10 @@ function make_order_call_campaign( WP_REST_Request $request ) {
     throw new Exception($response['response']['code']);
   }else{
     $finalResponse = array (
-    'code' => 200
+    'code' => 200,
+    'uuid' => $user->{'uuid'},
+    'token' => $user->{'token'},
+    'orderNumber' => $order->{'number'}
   );
   return $finalResponse;
 }

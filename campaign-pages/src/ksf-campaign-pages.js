@@ -180,6 +180,7 @@ $('#campaignFormInit').submit(function (e) {
   e.preventDefault();
   $.ajax({
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/new',
+    // url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/new',
     //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/new',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -211,7 +212,18 @@ $('#campaignFormInit').submit(function (e) {
       } else {
         document.getElementById("paymentModalSrc").src = result.url;
         $('#paymentModal').modal('show');
-        initiateOrderChecker(e, result.uuid, result.token, result.orderNumber);
+        const onCompleted = function() {
+          $("#paymentModalSrc").hide();
+          $("#payment-loading").hide();
+          $("#payment-successfull").show();
+        }
+        const onFailed = function() {
+          $("#paymentModalSrc").hide();
+          $("#payment-loading").hide();
+          $("#payment-successfull").hide();
+          $("#payment-unsuccessfull").show();
+        };
+        initiateOrderChecker(e, result.uuid, result.token, result.orderNumber, onCompleted, onFailed);
       }
     },
     error: function (e) {
@@ -226,6 +238,7 @@ $('#campaignFormOnePagerInit').submit(function (e) {
   e.preventDefault();
   $.ajax({
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/new-paper',
+    // url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/new-paper',
     //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/new-paper',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -253,7 +266,7 @@ $('#campaignFormOnePagerInit').submit(function (e) {
         $("#error_text").show();
         $('#error_text').html(result.message);
       } else {
-        $("#one-pager-successfull").show();
+        initiateOrderChecker(e, result.uuid, result.token, result.orderNumber, () => $("#one-pager-successfull").show(), () => $("#one-pager-failed").show());
       }
     },
     error: function (e) {
@@ -264,11 +277,12 @@ $('#campaignFormOnePagerInit').submit(function (e) {
   });
 });
 
-function initiateOrderChecker(e, uuid, token, orderNumber) {
+function initiateOrderChecker(e, uuid, token, orderNumber, onCompleted, onFailed) {
   e.preventDefault();
   $.ajax({
     type: "POST",
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
+    // url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
     //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/get-order/',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -280,17 +294,14 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
     },
     success: function (result) {
       if (result.status['state'] == 'created') {
-        setTimeout(initiateOrderChecker(e, uuid, token, orderNumber), 5000);
+        setTimeout(initiateOrderChecker(e, uuid, token, orderNumber, onCompleted, onFailed), 5000);
       }
       else if (result.status['state'] == 'started') {
         $("#paymentModalSrc").hide();
         $("#payment-loading").show();
-        setTimeout(initiateOrderChecker(e, uuid, token, orderNumber), 5000);
+        setTimeout(initiateOrderChecker(e, uuid, token, orderNumber, onCompleted, onFailed), 5000);
       }
       else if (result.status['state'] == 'completed') {
-        $("#paymentModalSrc").hide();
-        $("#payment-loading").hide();
-        $("#payment-successfull").show();
         window.dataLayer = window.dataLayer || [];
         dataLayer.push({
           'event': 'purchase',
@@ -313,12 +324,10 @@ function initiateOrderChecker(e, uuid, token, orderNumber) {
             }
           }
         });
+        onCompleted();
       }
       else if (result.status['state'] == 'failed') {
-        $("#paymentModalSrc").hide();
-        $("#payment-loading").hide();
-        $("#payment-successfull").hide();
-        $("#payment-unsuccessfull").show();
+        onFailed();
       }
     },
     error: function (e) {
