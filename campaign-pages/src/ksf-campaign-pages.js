@@ -138,6 +138,15 @@ function selectCampaign(id) {
   });
 }
 
+//for changing the payment method on select and therefore changing the ID of the form element
+$('#payment-method').on('change', function() {
+	if(this.value==='card'){
+		$('#campaignFormOnePagerInit').prop('id', 'campaignFormInit');
+	}else if(this.value==='invoice'){
+		$('#campaignFormInit').prop('id', 'campaignFormOnePagerInit');
+	}
+});
+
 $("#terms-accept").click(function () {
   $('#submit-button').prop('disabled', !$(this).is(':checked') || !$("#selectedCampaign").val());
   window.dataLayer = window.dataLayer || [];
