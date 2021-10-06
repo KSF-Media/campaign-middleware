@@ -678,3 +678,15 @@ iframe {
   justify-content: center;
   align-items: center;
 }
+
+.kampanj-hbl-swap-image-on-mobile {
+  background: url(https://www.ksfmedia.fi/wp-content/uploads/2021/10/kampanj-bg-bild2-mobile.jpeg);
+  background-position: left;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 601px) {
+  .kampanj-hbl-swap-image-on-mobile {
+	background: url(https://www.ksfmedia.fi/wp-content/uploads/2021/10/kampanj-bg-bild2-scaled.jpeg);
+  }
+}
