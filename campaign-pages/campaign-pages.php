@@ -34,11 +34,12 @@ add_action( 'rest_api_init', function () {
 
 function errorCodeHandler($e) {
   $errorObj = array(
+    'email_address_in_use_registration'=>'Du redan har ett konto med denna e-postadress.',
     403=>'Fel användarnamn eller lösenord.',
     400=>'Någonting gick fel.<br>Kontrollera att du inte redan har ett konto med denna e-postadress. Du kan <a href="https://konto.ksfmedia.fi/#l%C3%B6senord" target="__blank">återställa lösenordet här</a>. <br>Var god granska att du valt en kampanj samt fyllt i rätt information. <br>Om du försöker beställa en papperstidning kan det hända att vi saknar dina adressuppgifter. Var vänlig och besök <a href="https://konto.ksfmedia.fi/" target="__blank">Mitt konto</a>, ange din adress och försök igen.',
     500=>'Någonting gick fel. Var god försök igen.',
     404=>'Någonting gick fel med din prenumeration. Var god försök igen.',
-  	103=>'Angiven kampanjkod är felaktig.'
+    103=>'Angiven kampanjkod är felaktig.'
   );
   return $errorObj[$e];
 }
@@ -226,14 +227,12 @@ function newUserSignup($body) {
   $response = wp_remote_post( 'https://persona.api.ksfmedia.fi/v1/users', $options);
   if($response['response']['code']!=200) {
     $message = '';
-    if (array_key_exists('email_address_in_use_registration', $response['body'])) {
-      $message = "email_address_in_use_registration";
+    if (array_key_exists('email_address_in_use_registration', json_decode($response['body'])) ) {
+        $message = "email_address_in_use_registration";
+    } else {
+        $message = $response['response']['code'];
     }
-    $error_response = array(
-      'code' => $response['response']['code'],
-      'message' => $message
-    );
-    throw new Exception($error_response);
+    throw new Exception($message);
   } else {
     $responseBody = json_decode(wp_remote_retrieve_body( $response ));
     return $responseBody;
