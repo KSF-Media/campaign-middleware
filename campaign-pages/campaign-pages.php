@@ -34,12 +34,13 @@ add_action( 'rest_api_init', function () {
 
 function errorCodeHandler($e) {
   $errorObj = array(
-    'email_address_in_use_registration'=>'Du redan har ett konto med denna e-postadress.',
+   'email_address_in_use_registration'=>'Denna e-postadress är redan registrerad.',
     403=>'Fel användarnamn eller lösenord.',
     400=>'Någonting gick fel.<br>Kontrollera att du inte redan har ett konto med denna e-postadress. Du kan <a href="https://konto.ksfmedia.fi/#l%C3%B6senord" target="__blank">återställa lösenordet här</a>. <br>Var god granska att du valt en kampanj samt fyllt i rätt information. <br>Om du försöker beställa en papperstidning kan det hända att vi saknar dina adressuppgifter. Var vänlig och besök <a href="https://konto.ksfmedia.fi/" target="__blank">Mitt konto</a>, ange din adress och försök igen.',
     500=>'Någonting gick fel. Var god försök igen.',
     404=>'Någonting gick fel med din prenumeration. Var god försök igen.',
-    103=>'Angiven kampanjkod är felaktig.'
+    103=>'Angiven kampanjkod är felaktig.',
+    409=>'Eftersom du redan har en prenumeration är detta erbjudande inte tillgängligt för dig.'
   );
   return $errorObj[$e];
 }
