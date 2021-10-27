@@ -367,6 +367,11 @@
   color:white !important;
 }
 
+.btn-green-after-click {
+  background-color: #00665b !important;
+  color:white !important;
+}
+
 .offer_sub{
   font-size:0.85rem;
   color: #767676;
