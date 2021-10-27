@@ -83,6 +83,8 @@ function selectCampaign(id) {
       document.getElementById(id).classList.add("btn-choose-jr");
     } else if (document.getElementById(id).classList.contains("js-orange-theme")) {
       document.getElementById(id).classList.add("btn-choose-orange");
+	} else if (document.getElementById(id).classList.contains("btn-turns-green-on-click")) {
+      document.getElementById(id).classList.add("bg-green");
     } else {
     	document.getElementById(id).classList.add("btn-choose");	
   	}
@@ -185,7 +187,7 @@ function forgotPwModal() {
   $('#forgotPasswordModal').modal('show');
 }
 
-$('#campaignFormInit').submit(function (e) {
+$(document).on('submit', '#campaignFormInit', function (e) {
   e.preventDefault();
   $.ajax({
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/new',
@@ -225,6 +227,9 @@ $('#campaignFormInit').submit(function (e) {
           $("#paymentModalSrc").hide();
           $("#payment-loading").hide();
           $("#payment-successfull").show();
+    		  document.getElementById('campaignFormInit').reset();
+    		  document.getElementById('campaign_selected').style.display = "none";
+    		  document.getElementById('selectedCampaign').value = "";
         }
         const onFailed = function() {
           $("#paymentModalSrc").hide();
@@ -243,7 +248,9 @@ $('#campaignFormInit').submit(function (e) {
   });
 });
 
-$('#campaignFormOnePagerInit').submit(function (e) {
+//onepager was initially the only campaign utilizing the paper invoice, but upon further requirements it was implemented into other campaigns whilst the name stayed the same
+//bad naming convention but can be changed, but make sure to change all the ID:s in corresponding campaigns if you do so
+$(document).on('submit', '#campaignFormOnePagerInit', function (e) {
   e.preventDefault();
   $.ajax({
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/new-paper',
@@ -270,12 +277,30 @@ $('#campaignFormOnePagerInit').submit(function (e) {
       $("#divLoading").css('display', 'flex');
     },
     success: function (result) {
-      $("#divLoading").hide();
       if (result.code != 200) {
+    		$("#divLoading").hide();
         $("#error_text").show();
         $('#error_text').html(result.message);
       } else {
-        initiateOrderChecker(e, result.uuid, result.token, result.orderNumber, () => $("#one-pager-successfull").show(), () => $("#one-pager-failed").show());
+    		const onCompleted = function() {
+    			$("#divLoading").hide();
+    			$("#one-pager-failed").hide();
+    		 	$("#one-pager-successfull").show()
+    			document.getElementById('campaignFormOnePagerInit').reset();
+  		    document.getElementById('campaign_selected').style.display = "none";
+  		  	document.getElementById('selectedCampaign').value = "";
+        }
+        const onFailed = function(failReason) {
+        	$("#divLoading").hide();
+          if (failReason == 'SubscriptionExistsError') {
+      	 		$("#one-pager-failed").html('Eftersom du redan har en prenumeration är detta erbjudande inte tillgängligt för dig.')
+      	 		$("#one-pager-failed").css({"background-color": "#ffbaba", "color": "black", "padding": "8px 16px", "margin": "0 10px 16px 0"}); 
+      	 		$("#one-pager-failed").show()
+          } else {
+      	 		$("#one-pager-failed").show()
+          }
+        };
+        initiateOrderChecker(e, result.uuid, result.token, result.orderNumber, onCompleted, onFailed);
       }
     },
     error: function (e) {
@@ -292,7 +317,7 @@ function initiateOrderChecker(e, uuid, token, orderNumber, onCompleted, onFailed
     type: "POST",
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
     // url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/get-order/',
-    //url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/get-order/',
+    // url: 'http://localhost/wordpress/wp-json/ksf-campaign/v1/get-order/',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -336,7 +361,7 @@ function initiateOrderChecker(e, uuid, token, orderNumber, onCompleted, onFailed
         onCompleted();
       }
       else if (result.status['state'] == 'failed') {
-        onFailed();
+        onFailed(result.status['failReason']);
       }
     },
     error: function (e) {
