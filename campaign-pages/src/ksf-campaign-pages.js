@@ -252,6 +252,7 @@ $(document).on('submit', '#campaignFormInit', function (e) {
 //bad naming convention but can be changed, but make sure to change all the ID:s in corresponding campaigns if you do so
 $(document).on('submit', '#campaignFormOnePagerInit', function (e) {
   e.preventDefault();
+  $("#error_text").hide();
   $.ajax({
     url: 'https://www.ksfmedia.fi/wp-json/ksf-campaign/v1/new-paper',
     // url: 'https://stage.ksfmedia.fi/wp-json/ksf-campaign/v1/new-paper',
