@@ -73,6 +73,16 @@ function moreOrLess(id) {
 }
 
 function selectCampaign(id) {
+  selectCampaignWithoutScroll(id)
+  // Scroll down to the campaign form after the select campaign button has been clicked.
+  $([document.documentElement, document.body]).animate({
+    scrollTop: $("#info_section").offset().top
+  }, 500);
+}
+
+// Use this function after page load to preselect a campaign.
+// See README for details.
+function selectCampaignWithoutScroll(id) {
   $('#submit-button').prop('disabled', !$("#terms-accept").is(':checked'));
   var currentCampaign = document.getElementById("selectedCampaign");
   if (!currentCampaign.value) {
@@ -116,9 +126,6 @@ function selectCampaign(id) {
   document.getElementById("selected_campaign_indicator").style.display = 'inline-block';
   document.getElementById("campaignNo").value = document.getElementById(id + '-campaignNo').value;
   document.getElementById("packageId").value = document.getElementById(id + '-packageId').value;
-  $([document.documentElement, document.body]).animate({
-    scrollTop: $("#info_section").offset().top
-  }, 500);
 
   // GTM and GA datalayer
   window.dataLayer = window.dataLayer || [];
