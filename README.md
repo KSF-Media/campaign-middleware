@@ -119,3 +119,19 @@ This is the body of a campaign:
 ```
 
 Christel and Jeppe also do not like to have the visual editor on the campaign pages, to disable this, simply contact Håkan from your WordPress company and provide him with the pageID and tell him to disable the visual editor for that page.
+
+HOW TO PRESELECT A CAMPAIGN
+
+If there is only one campaign, it can be preselected for the user. To do this, add this script to the bottom of the HTML file, changing `REPLACE_ME` to the campaign ID, as done above.
+
+Note that `selectCampaignWithoutScroll` avoids a disorientating page scroll just after page load. 
+
+```html
+<script>
+  window.onload = (event) => {
+    selectCampaignWithoutScroll(REPLACE_ME);
+  };
+</script>
+```
+
+If Elementor has been used to create the campaign page, click on the relevant section in the Elementor visual editor to access and edit the HTML code.
