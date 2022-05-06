@@ -345,20 +345,21 @@ function initiateOrderChecker(e, uuid, token, orderNumber, onCompleted, onFailed
       }
       else if (result.status['state'] == 'completed') {
         window.dataLayer = window.dataLayer || [];
+		var price = parseFloat(document.getElementById("selected_campaign_price").innerHTML.replace(/[^0-9,]/g, '').replace(',', '.'));
         dataLayer.push({
           'event': 'purchase',
           'ecommerce': {
             'purchase': {
               'actionField': {
                 'id': orderNumber,
-                'revenue': parseFloat(document.getElementById("selected_campaign_price").innerHTML.replace(/[^0-9,]/g, '').replace(',', '.')),
+                'revenue': price,
                 'currencyCode': 'EUR',
                 'coupon': "" // if there is a coupon code 
               },
               'products': [{
                 'name': document.getElementById("selected_campaign_text").innerHTML,
                 'id': document.getElementById("campaignNo").value,
-        				'price': parseFloat(document.getElementById("selected_campaign_price").innerHTML.replace(/[^0-9,]/g, '').replace(',', '.')),
+        				'price': price,
                 'category': 'Package deal',
                 'variant': document.getElementById("packageId").value,
                 'quantity': 1
@@ -366,6 +367,12 @@ function initiateOrderChecker(e, uuid, token, orderNumber, onCompleted, onFailed
             }
           }
         });
+		try {
+			fbq('track', 'Purchase', {currency: "EUR", value: price});
+			console.log("fb purchase success") // TODO: debug only, remove
+		} catch (error) {
+			console.error(error, "FB tracking failed");
+		}
         onCompleted();
       }
       else if (result.status['state'] == 'failed') {
