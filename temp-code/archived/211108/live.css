@@ -1,0 +1,710 @@
+@font-face {  
+  font-family: duplex-sans-bold;
+  src: url(Fonts/Duplex_Sans/DuplexSans-Bold.otf);
+}
+@font-face {  
+  font-family: duplex-sans-light;
+  src: url(Fonts/Duplex_Sans/DuplexSans-Light.otf);
+}
+
+@font-face {  
+  font-family: duplex-sans-regular;
+  src: url(Fonts/Duplex_Sans/DuplexSans-Regular.otf);
+}
+@font-face {  
+  font-family: duplex-sans-semibold;
+  src: url(Fonts/Duplex_Sans/DuplexSans-Semibold.otf);
+}
+
+@font-face {  
+  font-family: duplex-seriff-regular;
+  src: url(Fonts/Duplex_Serif/DuplexSerif-Regular.otf);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+.header {
+  text-align: center;
+  padding: 32px;
+  color:white;
+}
+.big-header{
+	height:500px!important
+}
+
+.disclaimer_text{
+	font-family: duplex-sans-light;
+	padding:50px;
+}
+
+@media only screen and (max-width: 600px) {
+ .big-header{
+	height:200px!important
+}
+}
+@media(min-width: 600px) {
+ .big-header-content h1{
+	font-size:40px !important;
+}
+}
+.big-header-content {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+@media only screen and (max-width: 600px) {
+  .banner .header_container {
+	text-align:center !important;
+}
+	.banner img .akademen_logo{
+	text-align:center !important;
+}
+}
+.banner {
+  text-align:center;
+  padding: 24px;
+  color:white;
+  font-family: duplex-sans-regular;
+  font-size:1.2rem;
+  background-color:#00724f;
+}
+.banner_no_bg {
+  text-align:center;
+  padding: 40px;
+  color:white;
+  font-family: duplex-sans-regular;
+  font-size:3rem;
+}
+.banner .header_container {
+	text-align:right;
+}
+
+.banner img{
+  height:20px;
+  color:white;
+  max-height:5.3rem;
+  width:auto;
+  margin-top: 8px !important;
+}
+.banner img .akademen_logo{
+	text-align:left;
+}
+.sngl-page-btn{
+  padding-top:20% !important;
+}
+.card_one_pager {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  background-color:white;
+  max-width: 90%;
+}
+
+.row_column {
+  display: -ms-flexbox; /* IE 10 */
+  display: flex;
+  padding-top:4%;
+  -ms-flex-wrap: wrap; /* IE 10 */
+  flex-wrap: wrap;
+  /*padding: 0 4px;*/
+}
+
+.card_container_background {
+    background: #F8F8F8;
+}
+.card_container_background_one_pager {
+  min-height:80%;
+  padding-top:7%;
+  padding-bottom:10%;
+  width: 100%;
+  background-color: white; /* fallback color */
+  background-image: url("https://www.ksfmedia.fi/wp-content/uploads/2021/04/akademen-bg-bild.jpg");
+  background-position: center;
+  background-size: cover;
+}
+.card_img_one_pager{
+ padding-top:10%;
+}
+
+.one_pager_campaign_code{
+	margin-bottom:3rem;
+}
+.side_dash_one_pager{
+  border-left: 2px solid grey;
+}
+.card_container_margin {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.card {
+  background-color: white;
+  border-radius: 0rem !important;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+}
+.cards_item {
+  display: flex;
+  padding: 1rem;
+}
+.card_content {
+  padding: 1rem;
+  padding-bottom: 2rem;
+  background: white;
+}
+
+.card_title {
+  text-align: center;
+  font-family: duplex-sans-semibold;
+  color: black;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  margin: 0px;
+}
+
+.card_text {
+  text-align: center;
+  color: #363535;
+  opacity: 0.8;
+  font-family: duplex-sans-light;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0px !important;
+  font-weight: 400;
+}
+.img-container {
+  position:relative;
+  text-align: center;
+  color: white;
+}
+.bottom-right-campaign-image {
+  position: absolute;
+  background-color: #000000;
+  font-family:duplex-sans-regular;
+  padding: 4px 6px 4px 6px;
+  font-size: 0.85rem;
+  bottom: 0px;
+  right: 0px;
+}
+.hidden-text{
+  text-align: center;
+}
+.price-cross{
+  font-size:1rem;
+  color: #9c9c9c;
+  font-family: duplex-sans-light;
+  font-weight: 400;
+  text-decoration: line-through;
+  margin-top: 5%;
+  margin-bottom: 0px !important;
+}
+.price-actual{
+  font-size:2rem;
+  color: black;
+  font-family: duplex-sans-semibold;
+  margin-bottom: 1.25rem; 
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+}
+
+.campaign_info{
+  font-size:0.85rem;
+  font-family: duplex-sans-regular;
+  color:#BCBCBC;
+  padding-bottom: 20px;
+}
+.more_info_one_pager .campaign_info{
+  font-size:1rem;
+  font-family: duplex-sans-regular;
+  color:white;
+  padding-bottom: 20px;
+}
+.more_info_one_pager .price-actual{
+  font-size:2.5rem;
+  color:white !important;
+}
+.more_info_one_pager .per_month{
+  color: white;
+}
+.campaign_info_header{
+  font-size:0.85rem;
+  font-family: duplex-sans-regular;
+  color:#BCBCBC;
+  margin-top:10px;
+  margin-bottom:0px;
+}
+.campaign_info_sub{
+  font-size:0.85rem;
+  font-family: duplex-sans-regular;
+  color:black;
+  margin-top:5px;
+  margin-bottom:10px;
+  padding-bottom: 20px;
+}
+.per_month{
+  color: black;
+  font-family: duplex-sans-semibold;
+  margin-top:0px!important;
+  margin-bottom:0px!important;
+  font-size:0.85rem;
+}
+.campaign-button-group{
+  margin-top:30px;
+}
+.detail-button{
+  margin-right:10px;
+  padding: .4rem 1.5rem !important;
+}
+.select-button{
+  padding: .4rem 1.5rem !important;
+}
+
+.offer_header{
+  font-family: duplex-sans-semibold;
+  margin-top:30px;
+  font-weight: bold;
+}
+.modal-title{
+  font-family:duplex-sans-semibold !important;
+}
+
+.offering_items{
+  text-align:left !important;
+  padding-bottom: 20px;
+}
+.offer_one_pager{
+  margin-right:10%;
+  margin-left:10%;
+  margin-bottom: 3%;
+  margin-top:0%;
+}
+.card_title_one_pager{
+  text-align: left;
+  font-family: duplex-sans-semibold;
+  color: black;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 20px;
+  margin-left:2%;
+  display: inline-block;
+}
+.offer_header_one_pager{
+  font-family: duplex-sans-semibold;
+  font-weight: bold;
+  text-align:left !important;
+}
+.offering_items_one_pager{
+  text-align:left !important;
+  font-size:50% !important;
+}
+.offer_item_one_pager{
+  font-size:0.9rem;
+  color: #767676;
+  font-family: duplex-sans-semibold;
+  margin-bottom:0px !important;
+}
+.offer_item_one_pager i {
+  color: #00810A;
+}
+.offer_sub_one_pager{
+  font-size:0.75rem;
+  color: #767676;
+  font-family: duplex-sans-regular;
+  margin-bottom:3px !important;
+}
+.more_info_one_pager{
+  padding:12%;
+  background-color:black;
+  height: 100%;
+  display: grid;
+}
+.offering_items_one_pager .offer_item{
+  text-align:left !important;
+}
+.offer_item{
+  font-size:1rem;
+  color: #767676;
+  font-family: duplex-sans-semibold;
+  margin-bottom:0px !important;
+}
+.offer_item i {
+  color: #00810A;
+}
+
+.btn{
+ font-size: 1rem !important;
+ font-weight: 100;
+ font-family: duplex-sans-regular;
+}
+.btn-show-down{
+  background-color: #BCBCBC !important;
+  color:white !important;
+}
+.btn-choose{
+  background-color:#00810A !important;
+  color:white !important;
+}
+
+.btn-choose-jr{
+  background-color:#C61C53 !important;
+  color:white !important;
+}
+
+.btn-choose-orange {
+  background-color:#F07E26 !important;
+  color:white !important;
+}
+
+.btn-green-after-click {
+  background-color: #00665b !important;
+  color:white !important;
+}
+
+.offer_sub{
+  font-size:0.85rem;
+  color: #767676;
+  font-family: duplex-sans-regular;
+}
+/* Create two equal columns that sits next to each other */
+.column {
+  -ms-flex: 33.3%; /* IE 10 */
+  flex: 33.3%;
+  padding: 0 4px;
+}
+
+.column img {
+  object-fit: cover;
+}
+
+.border_box_1{
+  border-right: 1px solid #D3D3D3;
+  border-top: 1px solid #D3D3D3;
+  height: 100%;
+  padding-top:20px;
+}
+.border_box_2{
+  border-top: 1px solid #D3D3D3;
+  padding-top:20px;
+}
+.selected-x-pdn{
+  padding-left:10%;
+  padding-top:10%;
+}
+.contact_form_header{
+  margin-bottom:20px;
+  font-family: duplex-sans-regular;
+}
+.contact_form h1 {
+    font-size: 1.5rem;
+}
+.contact_form label {
+  font-family: duplex-sans-regular;
+}
+.contact_form select, input[type="text"], input[type="password"], input[type="email"] {
+  background-color: #F8F8F8;
+  border-radius: 0px;
+  border-color: #F8F8F8;
+  font-family: duplex-sans-regular;
+}
+.btn-order{
+ font-size:1rem !important;
+ background-color: #00AF0F !important;
+ color: #F8F8F8 !important;
+ padding: .375rem 1.75rem !important;
+}
+
+.btn-order-jr{
+ font-size:1rem !important;
+ background-color: #C61C53 !important;
+ color: #F8F8F8 !important;
+ padding: .375rem 1.75rem !important;
+}
+
+.btn-order-orange{
+ font-size:1rem !important;
+ background-color: #F07E26 !important;
+ color: #F8F8F8 !important;
+ padding: .375rem 1.75rem !important;
+}
+
+.btn-chosen{
+  font-size:1rem !important;
+  background-color: #00810A !important;
+  color: #F8F8F8 !important;
+  padding: .375rem 1.75rem !important;
+ }
+.btn-chosen-jr{
+  font-size:1rem !important;
+  background-color: #C61C53 !important;
+  color: #F8F8F8 !important;
+  padding: .375rem 1.75rem !important;
+ }
+
+.btn-chosen-orange {
+  background-color: #F07E26 !important;
+  color:white !important;
+}
+
+ .container_img{
+  position: relative;
+  text-align: left;
+  color: white;
+ }
+ .image-label{
+  width:20px;
+  height: 20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:100%;
+  background:black;
+  font-size:8px;
+  position:absolute;
+  top:0;
+  left:0px;
+  transform:translate(-30%,-50%);
+}
+
+.selected_campaign_text{
+  font-size:1rem;
+  color: black;
+  font-family: duplex-sans-semibold;
+}
+.selected_campaign_price{
+  font-size:0.9rem;
+  color: black;
+  font-family: duplex-sans-regular;
+}
+.selected_campaign_total{
+  font-family: duplex-sans-regular;
+  margin-top:30px;
+  border-bottom: 1px solid #D3D3D3;
+  width: 30%;
+  margin-bottom:0px !important;
+}
+
+.selected_campaign_price2{
+  font-family: duplex-sans-bold;
+  font-size: 1.5rem;
+  white-space: nowrap;
+}
+.selected_campaign_price2sub{
+  font-family: duplex-sans-regular;
+  font-size: 0.7rem;
+}
+
+.selected_campaign h1 {
+    font-size: 1.5rem;
+}
+
+.row{
+  --bs-gutter-x: 0rem!important;
+}
+.col-md-5 {
+  --bs-gutter-x: 1.5rem!important;
+}
+
+.add_section p{
+  font-size: 0.7rem;
+  opacity:0.8;
+  text-transform: uppercase;
+  font-family: duplex-sans-regular;
+  padding-bottom: 0px;
+  margin-bottom:0px;
+}
+.add_section .cards_item{
+  padding-top:0px;
+}
+
+.picture_footer{
+  text-align: center;
+  bottom: 0;
+  margin-left:20%;
+  margin-right:20%;
+  padding-top:2rem;
+}
+.footer_bg{
+  background: #F8F8F8;
+  width:100%;
+}
+.picture_footer_one_pager{
+  text-align: center;
+  bottom: 0;
+  margin-left:20%;
+  margin-right:20%;
+  background: #F8F8F8;
+}
+.picture_footer img {
+  opacity: 0.3;
+  max-height:5.3rem;
+  width:auto;
+  padding:2rem;
+}
+.picture_footer_one_pager img {
+  opacity: 0.3;
+  max-height:5.3rem;
+  width:auto;
+  padding:2rem;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#divLoading {
+  margin: 0px !important;
+  padding: 0px !important;
+  position: fixed;
+  right: 0px !important;
+  top: 0px !important;
+  width: 100%; height: 100%;
+  background-color: #666666;
+  z-index: 30001;
+  opacity: .9;
+  filter: alpha(opacity=90);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.successful-payment{
+  color: #00AF0F;
+  font-family: duplex-sans-bold;
+  margin-top:2rem;
+}
+.expired_div{
+  pointer-events: none;
+  opacity:0.5;
+}
+.expired_text{
+  color: red;
+  opacity:1 !important;
+}
+.error_text{
+  color: red;
+  font-family: duplex-sans-bold;
+  margin-top:2rem;
+  margin-bottom:0rem;
+}
+
+#primary { padding-top: 20px; padding-right: 10px; }
+#wpforo-wrap { padding:  0 ; }
+.container {
+    width: 100%;
+}
+@keyframes dot-keyframes {
+  0% {
+    opacity: 0.4;
+    transform: scale(1, 1);
+ }
+  50% {
+    opacity: 1;
+    transform: scale(1.2, 1.2);
+ }
+  100% {
+    opacity: 0.4;
+    transform: scale(1, 1);
+ }
+}
+.loading-dots {
+  text-align: center;
+  width: 100%;
+}
+.loading-dots--dot {
+  animation: dot-keyframes 1.5s infinite ease-in-out;
+  background-color: #000;
+  border-radius: 10px;
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+}
+.loading-dots--dot:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.loading-dots--dot:nth-child(3) {
+  animation-delay: 1s;
+}
+.selected_campaign_picture_width{
+ width: 300px;
+}
+iframe {
+   width: 1px;
+   min-width: 100%;
+   *width: 100%;
+}
+
+.gift-message {
+  display: flex;
+  align-items: center;
+  min-height: 13vw;
+  justify-content: center;
+  color: white;
+  font-family: duplex-sans-light;
+  font-size: calc(1rem + 0.2vw);
+}
+
+.gift-message__text {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  max-width: 85%;
+  text-align: center;
+}
+
+.gift-message__link {
+  color: white;
+}
+
+.pb-0 {
+  padding-bottom: 0;
+}
+
+.center-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kampanj-hbl-swap-image-on-mobile {
+  background: url(https://www.ksfmedia.fi/wp-content/uploads/2021/10/kampanj-bg-bild2-mobile.jpeg);
+  background-position: left;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 601px) {
+  .kampanj-hbl-swap-image-on-mobile {
+	background: url(https://www.ksfmedia.fi/wp-content/uploads/2021/10/kampanj-bg-bild2-scaled.jpeg);
+  }
+}
+
+.svenskadagen-swap-image-on-mobile {
+  background-image: url(https://www.ksfmedia.fi/wp-content/uploads/2021/10/Krista_Siegfrids_1980x500px-2-e1635515102928.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 601px) {
+  .svenskadagen-swap-image-on-mobile {
+	background-image: url(https://www.ksfmedia.fi/wp-content/uploads/2021/10/Tim_Sparv_1980x500px.jpg);
+	background-repeat: repeat;
+  }
+}
